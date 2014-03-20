@@ -1,0 +1,62 @@
+# A function to perform the lexical analysis based on pattern matching
+'''
+* This function takes the text to be tokenised along with a list of lexemes as an input.
+
+* It matches the input with the list of lexemes and returns all the tokens found in a given text as input
+'''
+
+
+import sys
+import re
+
+#defining all possible lexems
+
+definitions = [
+    	("TK_ASSGN","<-"),
+    	("TK_CMNT","#"),
+	("TK_ID","$[a-z|A-Z][a-z|A-Z|0-9]*"), #TODO: check this
+	("TK_STRLIT","[a-z|A-Z][a-z|A-Z|0-9|symbols]"), #TODO:def wrong. 
+	("TK_NUM","[0-9]+"),
+	("TK_RNUM","[0-9]+.[0-9][0-9]"), #TODO:check this
+	("TK_GLOBAL","global"),
+	("TK_IPP","input_parameters"),
+	("TK_OPP","output_parameters"),
+	("TK_FUNC","_[a-z|A-Z][a-z|A-Z]*"), #TODO:check this
+	("TK_OSQ","["),
+	("TK_CSQ","]"),
+	("TK_SCLN",";"),
+	("TK_RET","return"),
+	("TK_FEND","end"),
+	("TK_MAIN","_main"),
+	("TK_INT","int"),
+	("TK_FLOAT","float"),
+	("TK_READ","read"),
+	("TK_CALL","call"),
+	("TK_PRINT","print"),
+	("TK_PRINTLN","println"),
+	("TK_ORD","("),
+	("TK_CRD",")"),
+	("TK_WHILE","while"),
+	("TK_EWHILE","endwhile"),
+	("TK_IF","if"),
+	("TK_EIF","endif"),
+	("TK_ELSE","else"),
+	("TK_EQ","=="),
+	("TK_LTE","<="),
+	("TK_LESS","<"),
+	("TK_GTE",">="),
+	("TK_GRTR",">"),
+	("TK_NOT","~"),
+	("TK_NOTEQ","!="),
+	("TK_AND","&&"),
+	("TK_OR","||"),
+	("TK_PLUS","+"),
+	("TK_MINUS","-"),
+	("TK_MUL","*"),
+	("TK_DIV","/"),
+	("TK_MOD","%"),
+	("TK_COMMA",","),
+	("TK_VOID","void"),
+]
+	
+

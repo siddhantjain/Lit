@@ -3,7 +3,7 @@ Lit
 
 Lost in Translation(Lit) is a compiler created as a part of the course on Programming Languages and Compiler Construction.
 
-# Language Specifications
+## Language Specifications
 
 The specifications for the language can be viewed in the file named Language Specifications.txt
 

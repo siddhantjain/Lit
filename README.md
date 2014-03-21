@@ -1,29 +1,28 @@
 Lit
 ===
 
-Lost in Translation(Lit) is a compiler created as a part of the course Programming Languages and Compiler Construction.
+Lost in Translation(Lit) is a compiler created as a part of the course on Programming Languages and Compiler Construction.
 
 # Language Specifications
 
-The specifications for the language can be viewed in the following gist:
-[enter gist link here]
-
-
-# First sets, Follow sets and parse table
-
-We'll be performing LR(1) parsing for this language. The first sets, follow sets and parse table 
-All of these are available in corresponding files in the gist
-[again refer to gist]
-
+The specifications for the language can be viewed in the file named Language Specifications.txt
 
 # Lexer
 
-    "lexicalanalyser.py"
+    "src/lexicalanalyser.py"
 *       The lexer has been hand-written in python
 *       The re module has been extensively used for pattern matching
 *       Formed regexes are available in the file data.py
 *       The lexical analyser has 0 look-aheads but principal of longest match is satisfied through the order in which the regexes are tested
-*       
+
+
+# Grammar
+
+* The grammar is LL(1) compliant and the rules have been written in the grammar.txt file. The corresponding parse table has been represented in the ParseTable.xslx file. 
+Note: The numbers in the parse table refer to the rule numbers as in the grammar.txt file.
+
+
+       
 
 
 

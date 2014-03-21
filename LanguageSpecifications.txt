@@ -1,0 +1,63 @@
+﻿
+Identifiers
+Identifier are named as $[a-z][A-Z][[a-z]U[A-Z]U[0-9]]*. The name of an identifier must necessarily start with a $ symbol. The length allowed for an identifier is 2-10 characters, including $ symbol. 
+Function
+Function identifiers have to begin with ‘_’ symbol. They are of the form _[a-z|A-Z][a-z|A-Z]*. Functions can have multiple input and output parameters, of primitive and composite data types. Maximum length of function identifier is 20 characters, including ‘_’symbol. A function can have only a single return statement at the end of the function. Any declarative statements in a function must occur right in the beginning before other statements. A function can take only identifiers as input parameters, no literals.
+Main function: The main function begins with the keyword ‘_main’ and terminates with the keyword ‘end’. There can be only one main function in a program and is present after all other user defined functions. The main function doesn’t have any output or input parameter lists and no return statement.
+Data types
+The language provides for the following primitive data types:
+1. Type Integer: the keyword for representing integer data type is ‘’. The integer is of the form [0-9][0-9]*. The range of values accepted is -2147483648 to 2147483647 (32 bit).
+
+2. Type Float: the keyword for representing float data type is ‘’. The float is of the form
+[0-9][0-9]*.[0-9][0-9] (that is upto two places of decimal).  
+The language provides One Dimensional Arrays as the only composite data type. All arrays have global scope by default.
+Keywords
+The language supports keywords while, if, then, else, int, float, _main, input_parameters, output_parameters, return, print, println, read, call, end, endif, endwhile, break. The lexical table lists all the keywords and their purpose.
+Statements
+A semicolon ‘;’ designates the end of statements. The language provides for the following types of statements:
+1. Function call statement: functions are called with the given input parameter list. The protocol for a function returning void is 
+call  <_function_name> [<input parameter list>] ;
+The protocol for a function returning an output parameter list is 
+[<output parameter list>] <- call <_function_name> [<input parameter list>];
+
+2. General statements: these include print and read statements. They are of three types.
+a. To print the value of a single identifier or a single element of an array: print ($identifier_name) ;
+b. To print the value of a single identifier or a single element of an array and move the cursor to the next line: println($identifier_name);
+c. To print string literals: print (<string literal>); The print statement doesn’t allow the first character in a literal string to be the $ symbol.
+d. To read a value into identifier: read ($identifier_name);
+
+3. Iterative statement: iterations can be written only using ‘while’ statements. E.g. 
+while ( $a == 1)
+	print ( $b) ;
+	$a <- $a + 1;
+endwhile
+4. Conditional statement: the grammar provides for ‘if-then’ and ‘if-then-else’ conditional statements. The above can also be used in nested format. E.g. 
+if ( $a > 5)
+then
+	$a <- $a+6;
+	if ( $b<10)
+	then
+		$b <- $b+6;
+	endif
+else
+	if($b>10)
+	then
+		$b <- $b-100;
+	endif
+endif 
+
+5. Declaration statement: Statements used to declare the name of the identifier and its data type. They can be present only at the beginning of the function. They location of the declaration statement implicitly defines the scope of the identifier. Identifiers cannot be initialised in the declaration statements. Each identifier has to be declared in a separate line. E.g. int $dollar; int $money;
+
+6. Assignment statement: assign the value on the right hand side to the identifier. The RHS can be a positive integer/float literal or through an arithmetic expression. E.g. 
+$a <- 0-9;
+$a <- 9+5;
+$a <- 78;	
+
+Expressions
+1. Arithmetic expression: arithmetic expressions are evaluated according to the precedence rule following bracket> exponent> division> multiplication> addition> subtraction. They are evaluated from left-to-right. E.g. 
+$a <- ($b+$c*4)/($d%7)^3;
+
+2. Boolean expression: Boolean expressions are used within the ‘while’ and ‘if-else’ constructs as conditional statements. Boolean expressions can be concatenated using logical operators such as ‘&&’(AND), ‘||’(OR) and ‘~’(NOT). The logical operands accept only Boolean expressions as operands.
+
+Comments
+The beginning of a comment is marked with a ‘#’ symbol. The comments can only be a single line long.

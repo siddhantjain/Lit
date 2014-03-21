@@ -1,9 +1,9 @@
-import lexer
+import lexicalanalyser
 from data import regexes
 if __name__ == '__main__':
    
 
-    lx = lexer.Lexer(regexes)
+    lx = lexicalanalyser.Lexer(regexes)
     inputstring = '_functionName int a; $a <- $b+$c'
     lx.input(inputstring)
     

@@ -1,5 +1,7 @@
 import lexicalanalyser
 from data import regexes
+
+#weird way, but this is how main can start
 if __name__ == '__main__':
    
 

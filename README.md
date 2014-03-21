@@ -7,7 +7,7 @@ Lost in Translation(Lit) is a compiler created as a part of the course on Progra
 
 The specifications for the language can be viewed in the file named Language Specifications.txt
 
-# Lexer
+## Lexer
 
     "src/lexicalanalyser.py"
 *       The lexer has been hand-written in python
@@ -16,10 +16,10 @@ The specifications for the language can be viewed in the file named Language Spe
 *       The lexical analyser has 0 look-aheads but principal of longest match is satisfied through the order in which the regexes are tested
 
 
-# Grammar
+## Grammar
 
 * The grammar is LL(1) compliant and the rules have been written in the grammar.txt file. The corresponding parse table has been represented in the ParseTable.xslx file. 
-Note: The numbers in the parse table refer to the rule numbers as in the grammar.txt file.
+    Note: The numbers in the parse table refer to the rule numbers as in the grammar.txt file.
 
 
        

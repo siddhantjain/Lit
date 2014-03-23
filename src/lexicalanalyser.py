@@ -42,6 +42,7 @@ class Lexer():
 
         self.regex = re.compile('|'.join(regex_parts))                  #a single compilation statement for all Regexes
         self.re_ws_skip = re.compile('\S')                              #a regex to detect a substring with no white spaces    
+        self.re_ws = re.compile('\s|\n')                                   #a regex to detect whitespace
 
     def input(self, buf):
      #function to initialise the input buffer for the lexer
@@ -77,10 +78,11 @@ class Lexer():
 
             # if we're here next_unit was not matching any regex
             #TODO: use non-white space regex here
+            wsmatch=self.re_ws.search(self.buf, self.pos)
             initial = self.pos                  #stores the initial starting position of error
-            while (self.buf[self.pos] != ' '):
-                self.pos = self.pos + 1        #finds the end position of erring word (Partially Wrong) 
-            tok = Lexeme('TK_ERROR',self.buf[initial:self.pos],initial)
+            final = wsmatch.start()
+            tok = Lexeme('TK_ERROR',self.buf[initial:final],initial)
+            self.pos = wsmatch.end()
             return tok
 
     

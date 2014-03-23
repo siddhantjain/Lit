@@ -10,7 +10,7 @@ The specifications for the language can be viewed in the file named Language Spe
 ## Lexer
 
     "src/lexicalanalyser.py"
-*       The lexer has been hand-written in python
+*       The lexer has been hand-written in Python
 *       The re module has been extensively used for pattern matching
 *       Formed regexes are available in the file data.py
 *       The lexical analyser has 0 look-aheads but principal of longest match is satisfied through the order in which the regexes are tested

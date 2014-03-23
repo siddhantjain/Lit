@@ -1,5 +1,5 @@
 regexes = [
-(r'#[^\\n]*','TK_CMNT'),
+(r'#.*$','TK_CMNT'),
 ('_main','TK_MAIN'),			#placed before functions since functions have a similar starting character
 (r'\$[a-zA-Z]+','TK_ID'),
 (r'\"(\\.|[^"])*\"','TK_STRLIT'),

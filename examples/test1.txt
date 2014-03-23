@@ -8,11 +8,11 @@ _binarytodecimal input_parameters [ int $arraysize] output_parameters [int $deci
     $ans <- 0;
     $multiply <- 1;
     $count <- $arraysize;
-    while ($count >= 1)
+    while($count >= 1)
         if ($a[$count] == 1)
             $ans <- $ans+ $multiply;
             $multiply <- $multiply*2;
-            $count <- $count - 1;
+            $count <- $count - 1;       #test comment inline
         else
             $multiply <- $multiply*2;
             $count <- $count - 1;

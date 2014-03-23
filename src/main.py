@@ -6,7 +6,7 @@ if __name__ == '__main__':
    
 
     lx = lexicalanalyser.Lexer(regexes)
-    progfile = open("program_lit.txt","r")
+    progfile = open("program1_lit.txt","r")
     errorfile = open("error_lit.txt","w")
     tokfile = open("tokens_lit.txt","w")
     lineno = 1

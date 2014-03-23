@@ -89,12 +89,17 @@ class Lexer():
     def tokens(self):
         # Returns an iterator to the tokens found in the buffer. Iterator is a standard for OOP. You may read up on them
         
-        while 1:
+        tokensperline = []
+        tok = self.token()
+        while(tok): 
+            tokensperline.append(tok)
             tok = self.token()
-            if tok is None: break 
-            yield tok
 
-    
+        return tokensperline
+                    
+                   
+        
+            
 
 
 

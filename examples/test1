@@ -1,0 +1,41 @@
+#program to find the decimal equivalent of a binary number given in the form of an array.
+
+_binarytodecimal input_parameters [ int $arraysize] output_parameters [int $decimal];
+    int $ans;
+    int $count;
+    int $multiply;
+ 
+    $ans <- 0;
+    $multiply <- 1;
+    $count <- $arraysize;
+    while ($count >= 1)
+        if ($a[$count] == 1)
+            $ans <- $ans+ $multiply;
+            $multiply <- $multiply*2;
+            $count <- $count – 1;
+        else
+            $multiply <- $multiply*2;
+            $count <- $count – 1;
+        endif
+    endwhile
+
+return [$ans];
+end
+
+_main
+	int[10] $a;
+	int $arrays;
+	int $c;
+	int $result;
+	$c <- 1; 
+	$arrays <- 10;
+	while($c <= 10)
+		print("Enter bit number");
+		println($c);
+		read($a[$c]);
+		$c <- $c + 1;
+	endwhile
+	[$result] <- call _binarytodecimal[$arrays];
+	println($result);
+end
+

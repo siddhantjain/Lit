@@ -1,15 +1,15 @@
-Rule Number,LHS,RHS
-RULE1,<Program>,<O_functions>  <main_function>
+Rule,LHS,RHS
+RULE1,<Program>,<O_functions> <main_function>
 RULE2,<O_functions>,<function> <O_functions>
 RULE3,<O_functions>,NULL
 RULE4,<main_function>,TK_MAIN <stmts> TK_END
-RULE5,<stmts>,<dclrtv_stmts>  <O_stmts> <return_stmt>
+RULE5,<stmts>,<declrtv_stmts>  <O_stmts> <return_stmt>
 RULE6,<stmts>,NULL
 RULE7,<O_stmts>,<stmt> <O_stmts>
 RULE8,<O_stmts>,NULL
 RULE9,<stmt>,<cond_stmt>
 RULE10,<stmt>,<iterative_stmt>
-RULE11,<stmt>,<assgnm_stmt>
+RULE11,<stmt>,<assignm_stmt>
 RULE12,<stmt>,<gen_stmt>
 RULE13,<stmt>,<funcall_stmt>
 RULE14,<stmt>,<break_stmt>
@@ -54,7 +54,7 @@ RULE52,<var>,<id>
 RULE53,<Boolean_expression>,TK_ORD <Boolean_expression> TK_CRD <logical_operator> TK_ORD <Boolean_expression> TK_CRD
 RULE54,<Boolean_expression>,<var> <b_e>
 RULE55,<Boolean_expression>,TK_NOT <Boolean_expression>
-RULE56,<b_e>,<relational_operators> <var> <b_e>
+RULE56,<b_e>,<relational_operator> <var> <b_e>
 RULE57,<b_e>,NULL
 RULE58,<logical_operator>,TK_ADD
 RULE59,<logical_operator>,TK_OR
@@ -73,8 +73,8 @@ RULE71,<list_var>,<id> <next>
 RULE72,<next>,TK_COMMA <list_var>
 RULE73,<next>,NULL
 RULE74,<break_stmt>,TK_BREAK TK_SCLN
-RULE75,<assgnm_stmt>,<id> TK_ASSGN <arithmetic_expression> TK_SCLN
-RULE76,<assgnm_stmt>,TK_OSQ <list_var> TK_CSQ TK_ASSGN <funcall_Stmt>
+RULE75,<assignm_stmt>,<id> TK_ASSIGN <arithmetic_expression> TK_SCLN
+RULE76,<assignm_stmt>,TK_OSQ <list_var> TK_CSQ TK_ASSIGN <funcall_Stmt>
 RULE77,<function>,TK_FUNC <input_parameters> <output_parameters> TK_SCLN <stmts> TK_END
 RULE78,<input_parameters>,TK_IPP TK_OSQ <i_p>
 RULE79,<i_p>,<parameter_list> TK_CSQ

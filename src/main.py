@@ -1,7 +1,6 @@
 import lexicalanalyser
 import parser_pda
 import parserpart2
-
 from data import regexes
 
 #weird way, but this is how main can start
@@ -48,3 +47,4 @@ if __name__ == '__main__':
     nextrule = parserpart2.RuleNumber(0)
     Head = parserpart2.BuildTree(generatedrules,nextrule,RulesDict)
     parserpart2.printtree(Head)
+

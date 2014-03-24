@@ -6,11 +6,12 @@ if __name__ == '__main__':
    
 
     lx = lexicalanalyser.Lexer(regexes)
-    progfile = open("examples/test1.txt","r")
-    errorfile = open("error_lit.txt","w")
-    tokfile = open("tokens_lit.txt","w")
+
+    progfile    =  open("examples/test1.txt","r")       #TODO: Change all these to command line arguments
+    errorfile   =  open("error_lit.txt","w")
+    tokfile     =  open("tokens_lit.txt","w")
+    
     lineno = 1
-    counttok = 0
     for line in progfile:
     	lx.input(line)
         alltokens = lx.tokens()

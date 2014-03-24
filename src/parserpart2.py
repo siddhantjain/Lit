@@ -23,7 +23,7 @@ def printtree(obj):
 	if obj.children:
 		for child in obj.children:
 			print(" %s " %child.val)
-		print("\n")
+		#print("\n")
 		for child in obj.children:
 			if child:
 				printtree(child)
@@ -70,15 +70,15 @@ def BuildTree(alllines,nextrule):
 if __name__ == '__main__':
     
     #progrules = open("examples/programrules.txt","r")
-    ruleslistfile = open("TestGrammar.csv","r")
+    ruleslistfile = open("Grammar.csv","r")
     RulesDict = defaultdict(list)
-    reader = csv.DictReader(ruleslistfile,['Rule Number','LHS','RHS']) #create a reader which represents rows in a dictionary form
+    reader = csv.DictReader(ruleslistfile,['Rule Number','LHS','RHS'],delimiter='\t') #create a reader which represents rows in a dictionary form
     for row in reader: #this will read a row as {column1: value1, column2: value2,...}
         #RulesDict[row['Rule Number']].append('%s42%s'%(row['LHS'],row['RHS']))
         RulesDict[row['Rule Number']].append(row['LHS'])
         RulesDict[row['Rule Number']].append(row['RHS'])
     
-	#print(RulesDict['RULE33'][0])
+	#print(RulesDict)
     #parsetreegen("examples/test2rules.txt")
     
     progrulefile = open("examples/test2rules.txt")

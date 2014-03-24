@@ -9,7 +9,6 @@ class Node(object):
 	
 
 	
-	
 	def add_children(self,obj):
 		self.children.append(obj)
 

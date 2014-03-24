@@ -1,6 +1,6 @@
 #program to find the decimal equivalent of a binary number given in the form of an array.
 
-_binarytodecimal input_parameters [ int $arraysize] output_parameters [int $decimal];
+_binarytodecimal input_parameters [int $arraysize] output_parameters [int $decimal];
     int $ans;
     int $count;
     int $multiply;
@@ -23,7 +23,7 @@ return [$ans];
 end
 
 _main
-	int[10] $a;
+	int $a[10];
 	int $arrays;
 	int $c;
 	int $result;
@@ -37,5 +37,6 @@ _main
 	endwhile
 	[$result] <- call _binarytodecimal[$arrays];
 	println($result);
+return void;                #NEED TO PUT IT FOR SURE!
 end
 

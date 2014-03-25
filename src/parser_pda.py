@@ -64,8 +64,7 @@ class PushDownAutomata():
             key = row.pop('Rule')
             result[key] = row
         return result
-  
-    
+
 
     def PDAOperation(self):
     #beginning PDA operation
@@ -86,10 +85,6 @@ class PushDownAutomata():
          while(topOfStack != '$'):
             if topOfStack in nonTerminals:                                          # if topOfStack is a nonTerminal    
                 nextRule = parsetable[topOfStack][topOfInput]
-                
-                #print("TOS:%s"%topOfStack)
-                #print("TOI:%s"%topOfInput)
-                
                 if nextRule == '':              #check this condition
                     #print ('Syntax Error: No matching rule for derivation')
                     self.PDAAction.append('Syntax Error')
@@ -105,17 +100,14 @@ class PushDownAutomata():
                     for temp in toPush:
                         if temp != 'NULL':
                             self.PDAStack.push(temp)
+
                             #print(temp)
            
             elif topOfStack in terminals:                                   # if topOfStack is a terminal
-                #print("TOS:%s"%topOfStack)                                 
-                #print("TOI:%s"%topOfInput)
-                                                      
                 if (topOfStack == self.inputTokStack.head(0)):                  # Check if input token stream also has the same non terminal as head
                     self.inputTokStack.pop(0)                   
                     topOfInput = self.inputTokStack.head(0)
-                    #print ('Matching %s'%topOfStack)
-                    
+                   
                 else:
                     #print ('Syntax error: Terminals do not match')
                     self.PDAAction.append('Syntax Error')                                          # else this is a syntax error

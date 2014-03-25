@@ -6,9 +6,7 @@ class Node(object):
     def __init__(self,val):
         self.val = val
         self.children = []
-	
 
-	
     def add_children(self,obj):
         self.children.append(obj)
 
@@ -56,7 +54,6 @@ def BuildTree(alllines,nextrule,RulesDict):
                 newnode.children.append(newnode3)
 	
     return newnode
-
 
 def createRulesDict(Grammar):
     ruleslistfile = open(Grammar,"r")

@@ -1,7 +1,6 @@
 import lexicalanalyser
 import parser_pda
 import parserpart2
-
 from data import regexes
 
 #weird way, but this is how main can start
@@ -40,6 +39,7 @@ if __name__ == '__main__':
         
     rulegenerator = parser_pda.PushDownAutomata(parsetable,grammar,listofTokens)
     generatedrules = rulegenerator.PDAOperation()
+
     
     if generatedrules[-2] == 'Syntax Error':
         errorfile.write(generatedrules[-1]) 
@@ -51,3 +51,4 @@ if __name__ == '__main__':
         Head = parserpart2.BuildTree(generatedrules,nextrule,RulesDict)
        
     #parserpart2.printtree(Head)
+

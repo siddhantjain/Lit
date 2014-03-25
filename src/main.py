@@ -51,5 +51,7 @@ if __name__ == '__main__':
         nextrule = parserpart2.RuleNumber(0)
         Head = parserpart2.BuildTree(generatedrules,nextrule,RulesDict)
        
+
         parserpart2.printtree(Head,parsetreefile)
+
 

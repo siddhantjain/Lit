@@ -1,6 +1,33 @@
 import re
 import sys
+import symboltable
+from data import regexes
 
+def lexerControl(tokfilename,errorfilename,progfilename,symboltablelist):
+    lx = Lexer(regexes)
+    progfile    =  open(progfilename,"r")       #TODO: Change all these to command line arguments
+    errorfile   =  open(errorfilename,"w")
+    tokfile     =  open(tokfilename,"w")
+    #symtabfile 	=  open(symtabfilename,"w")
+    lineno = 1
+    for line in progfile:
+    	lx.input(line)
+        alltokens = lx.tokens()
+    	for tok in alltokens:
+    	   if tok.type_ == 'TK_ERROR':
+    	        errorfile.write ('(%d,%d) \'%s\' doesn\'t follow lexical rules'% (lineno,tok.pos,tok.val))
+           elif tok.type_ == 'TK_CMNT':
+                continue        
+    	   else:
+    	        tokfile.write ('%s '%tok.type_)
+    	        if(tok.type_ == 'TK_ID' or tok.type_ == 'TK_FUNC' or tok.type_ == 'TK_RNUM' or tok.type_ == 'TK_NUM' or tok.type_ == 'TK_STRLIT'):
+    	            temp = symboltable.symbolTable(tok.val,tok.type_,lineno)
+    	            symboltablelist.append(temp)     
+           
+    	lineno+=1
+    
+    tokfile.close()
+    #errorfile.close()
 
 class Lexeme():							
 	#Defines any identified Lexeme in the given string 

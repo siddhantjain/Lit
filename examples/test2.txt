@@ -1,7 +1,7 @@
-#program to find the decimal equivalent of a binary number given in the form of an array.
+#[reduced] program to find the decimal equivalent of a binary number given in the form of an array.
 _main
-	int $a[10];
-	int $arrays;
+    int $a[10];
+    int $arrays;
 	int $c;
 	int $result;
 	$c <- 1; 

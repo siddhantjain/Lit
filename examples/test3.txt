@@ -1,0 +1,11 @@
+_main 
+
+int $a;
+
+$a <- $a + 42.45;
+print ("Value of a is");
+print ($a);
+
+return void;
+
+end

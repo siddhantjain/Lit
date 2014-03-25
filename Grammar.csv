@@ -15,8 +15,8 @@ RULE13,<stmt>,<funcall_stmt>
 RULE14,<stmt>,<break_stmt>
 RULE15,<gen_stmt>,<print_stmts>
 RULE16,<gen_stmt>,<read_stmt>
-RULE17,<printf_stmts>,<print_stmt>
-RULE18,<printf_stmts>,<println_stmt>
+RULE17,<print_stmts>,<print_stmt>
+RULE18,<print_stmts>,<println_stmt>
 RULE19,<print_stmt>,TK_PRINT TK_ORD <all_var> TK_CRD TK_SCLN
 RULE20,<println_stmt>,TK_PRINTLN TK_ORD <all_var> TK_CRD TK_SCLN
 RULE21,<all_var>,TK_NUM

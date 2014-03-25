@@ -1,6 +1,7 @@
 import csv
 import re
 from collections import defaultdict
+from data import terminals, nonTerminals
 
 class Node(object):
     def __init__(self,val):
@@ -15,17 +16,21 @@ class RuleNumber(object):
         self.val = val
 
 
-def printtree(obj):
-    print("parent is %s and children are: " % obj.val)
+def printtree(obj,parsetreefile):
+    
+    parsetreefile.write("\n %s -> " % obj.val)
     if obj.children:
         for child in obj.children:
-            print(" %s " %child.val)
+            parsetreefile.write("%s " %child.val)
         #print("\n")
         for child in obj.children:
             if child:
-                printtree(child)
+                printtree(child,parsetreefile)
     else:
-        print("None")
+        if obj.val in terminals:
+            parsetreefile.write("Leaf Node ")
+        else:
+            parsetreefile.write("NULL")
 
 def BuildTree(alllines,nextrule,RulesDict):
 	#line = progrulefile.next()
@@ -54,7 +59,6 @@ def BuildTree(alllines,nextrule,RulesDict):
                 newnode.children.append(newnode3)
 	
     return newnode
-
 
 def createRulesDict(Grammar):
     ruleslistfile = open(Grammar,"r")

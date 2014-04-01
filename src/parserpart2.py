@@ -10,10 +10,36 @@ class Node(object):
 
     def add_children(self,obj):
         self.children.append(obj)
-
+    
+    '''
+    def __str__(self, level=0):
+        ret = "\t"*level+repr(self.val)+"\n"
+        if self.children:
+            for child in self.children:
+                if child:
+                    ret += child.__str__(level+1)
+            return ret
+    def __repr__(self):
+        return "%s" % self.val
+    '''
 class RuleNumber(object):
     def __init__(self,val):
         self.val = val
+
+def printtree2(obj,parsetreefile2, level):
+    temp2 = "%s"%obj.val
+    
+    if obj.val in terminals:
+        temp1 = "\t"*level + temp2 + "\n"
+    else:
+        temp1 = "\t"*level + temp2 + ":\n"
+    
+    parsetreefile2.write(temp1)
+    if obj.children:
+        for child in obj.children:
+            printtree2(child,parsetreefile2, level+1)
+
+        
 
 
 def printtree(obj,parsetreefile):
@@ -36,9 +62,9 @@ def BuildTree(alllines,nextrule,RulesDict):
 	#line = progrulefile.next()
     ruleno = alllines[nextrule.val]
     nextrule.val += 1
-    nonterm = RulesDict[ruleno][0]
+    nonterm = RulesDict[ruleno][0]          #LHS
     newnode = Node(nonterm)
-    RHS = RulesDict[ruleno][1]
+    RHS = RulesDict[ruleno][1]              #RHS
     
     for eachsymbol in RHS.split():
         #print("each symbol %s"%eachsymbol)
@@ -52,7 +78,7 @@ def BuildTree(alllines,nextrule,RulesDict):
             nextrule2 = nextrule
             #nextline = progrulefile2.next()
             nextruleno = alllines[nextrule2.val]
-            nextnonterm = RulesDict[nextruleno][0]
+            nextnonterm = RulesDict[nextruleno][0]      #Check if LHS of next rule is same as this non-terminal
             matchedsymrule = re.match(nextnonterm,eachsymbol)
             if matchedsymrule:
                 newnode3 = BuildTree(alllines,nextrule,RulesDict)

@@ -24,7 +24,7 @@ class Stack:
            
         else:
             return self.container.pop(0)
-            print ("reading from the end")
+            #print ("reading from the end")
 
      def head(self,flag=1):
         if flag:        

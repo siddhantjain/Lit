@@ -5,7 +5,7 @@ from data import regexes
 
 def lexerControl(tokfilename,errorfilename,progfilename,symboltablelist):
     lx = Lexer(regexes)
-    progfile    =  open(progfilename,"r")       #TODO: Change all these to command line arguments
+    progfile    =  open(progfilename,"r")       
     errorfile   =  open(errorfilename,"w")
     tokfile     =  open(tokfilename,"w")
     #symtabfile 	=  open(symtabfilename,"w")
@@ -22,7 +22,7 @@ def lexerControl(tokfilename,errorfilename,progfilename,symboltablelist):
     	        tokfile.write ('%s '%tok.type_)
     	        if(tok.type_ == 'TK_ID' or tok.type_ == 'TK_FUNC' or tok.type_ == 'TK_RNUM' or tok.type_ == 'TK_NUM' or tok.type_ == 'TK_STRLIT'):
     	            temp = symboltable.symbolTable(tok.val,tok.type_,lineno)
-    	            symboltablelist.append(temp)     
+    	            symboltablelist.append(temp)    
            
     	lineno+=1
     
@@ -50,9 +50,7 @@ class Lexer():
        
     def __init__(self, regexes):
         
-        #Note to Aki:
         # All the regexes are concatenated into a single regex for easy compilation. 
-        # You should read more on groups in MOTW site. 
         # We create named groups for each type of regular expression 
         # A name has to be given to each group, which we auto-generate in the following code
         

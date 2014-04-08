@@ -5,11 +5,16 @@ from data import terminals, nonTerminals
 
 class Node(object):
     def __init__(self,val):
-        self.val = val
+        self.val = val                          #Same as _type. Contains token value
         self.children = []
 
     def add_children(self,obj):
         self.children.append(obj)
+    
+    def add_more_details(self,realval,lineno,pos):
+        self.realval = realval
+        self.lineno = lineno
+        self.pos = pos
     
     '''
     def __str__(self, level=0):
@@ -26,11 +31,19 @@ class RuleNumber(object):
     def __init__(self,val):
         self.val = val
 
+class TokenNumber(object):
+    def __init__(self,val):
+        self.val = val
+
 def printtree2(obj,parsetreefile2, level):
     temp2 = "%s"%obj.val
     
     if obj.val in terminals:
-        temp1 = "\t"*level + temp2 + "\n"
+        if obj.val in ['TK_ID','TK_FUNC','TK_NUM','TK_RNUM','TK_STRLIT']:
+            temp2 = "%s %s %s %s"%(obj.val,obj.realval,obj.lineno,obj.pos)
+            temp1 ="\t"*level + temp2 + "\n"
+        else:
+            temp1 = "\t"*level + temp2 + "\n"
     else:
         temp1 = "\t"*level + temp2 + ":\n"
     
@@ -95,11 +108,17 @@ def createRulesDict(Grammar):
         RulesDict[row['Rule']].append(row['RHS'])
     return RulesDict
 
-
+def TokenInfoinParseTable(listofTokens,obj,nexttoken):
+    print("Reached HERE 2!\n")
+    if obj.val in terminals:
+        temp = re.split(r'~',listofTokens[nexttoken.val])                #place of 1 returns the TK_* part of the lexeme
+        if temp[1] == obj.val:
+            #print("%s %s %d"%(temp[1],obj.val,nexttoken.val))
+            nexttoken.val += 1
+            if obj.val in ['TK_ID','TK_FUNC','TK_NUM','TK_RNUM','TK_STRLIT']:
+                obj.add_more_details(temp[2],temp[3],temp[4])
     
-
-    
-
-
-
+    elif obj.children:
+        for child in obj.children:
+            TokenInfoinParseTable(listofTokens,child, nexttoken)
 

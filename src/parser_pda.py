@@ -6,6 +6,8 @@
 
 import sys
 import csv
+import shlex
+import re
 from data import terminals,nonTerminals
 
 class Stack:
@@ -65,15 +67,23 @@ class PushDownAutomata():
             result[key] = row
         return result
 
+    def getToken(self,word,place):                                #returns attribute from the lexeme based on place
+        if(word):
+            temp = re.split(r'~',word)[place]
+            #print(temp)                     #example: returns TK_MAIN from word = ~TK_MAIN~_main~2~0~ and pos = 1
+            return temp
+        else:                                       #returns $ if word is NULL
+            return '$'                              #in given stream of tokens and so we don;t need to push a $ seperately in the stack 
+    
 
     def PDAOperation(self):
     #beginning PDA operation
     #initialising input token stack
          
          for word in self.listofTokens:
-             self.inputTokStack.push(word)
+             self.inputTokStack.push(self.getToken(word,1))
          
-         self.inputTokStack.push('$')
+         #self.inputTokStack.push('$')
 
          parsetable = self.createParseTableMetaDict(self.PTDict)
          grammar = self.createGrammarMetaDict(self.GramDict)
@@ -104,7 +114,7 @@ class PushDownAutomata():
                             #print(temp)
            
             elif topOfStack in terminals:                                   # if topOfStack is a terminal
-                if (topOfStack == self.inputTokStack.head(0)):                  # Check if input token stream also has the same non terminal as head
+                if (topOfStack == self.inputTokStack.head(0)):              # Check if input token stream also has the same terminal as head
                     self.inputTokStack.pop(0)                   
                     topOfInput = self.inputTokStack.head(0)
                    

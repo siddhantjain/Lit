@@ -3,7 +3,7 @@ import sys
 import symboltable
 from data import regexes
 
-def lexerControl(tokfilename,errorfilename,progfilename,symboltablelist):
+def lexerControl(tokfilename,errorfilename,progfilename,symbolList,symbolTable):
     lx = Lexer(regexes)
     progfile    =  open(progfilename,"r")       
     errorfile   =  open(errorfilename,"w")
@@ -11,7 +11,7 @@ def lexerControl(tokfilename,errorfilename,progfilename,symboltablelist):
     #symtabfile 	=  open(symtabfilename,"w")
     lineno = 1
     for line in progfile:
-    	lx.input(line)
+    	lx.input(line,lineno)
         alltokens = lx.tokens()
     	for tok in alltokens:
     	   if tok.type_ == 'TK_ERROR':
@@ -19,12 +19,12 @@ def lexerControl(tokfilename,errorfilename,progfilename,symboltablelist):
            elif tok.type_ == 'TK_CMNT':
                 continue        
     	   else:
-    	        tokfile.write ('%s '%tok.type_)
-    	        if(tok.type_ == 'TK_ID' or tok.type_ == 'TK_FUNC' or tok.type_ == 'TK_RNUM' or tok.type_ == 'TK_NUM' or tok.type_ == 'TK_STRLIT'):
-    	            temp = symboltable.symbolTable(tok.val,tok.type_,lineno)
-    	            symboltablelist.append(temp)    
+    	        tokfile.write (str(tok))
+    	        #if(tok.type_ == 'TK_ID' or tok.type_ == 'TK_FUNC' or tok.type_ == 'TK_RNUM' or tok.type_ == 'TK_NUM' or tok.type_ == 'TK_STRLIT'):
+    	            #temp = symboltable.symbolTable(tok.val,tok.type_,lineno)
+    	            #symboltablelist.append(temp)
            
-    	lineno+=1
+        lineno+=1
     
     tokfile.close()
     #errorfile.close()
@@ -33,13 +33,14 @@ class Lexeme():
 	#Defines any identified Lexeme in the given string 
 	#along with it's token type, value and position. 
     
-    def __init__(self, type_, val, pos):				#constructor for intialising
+    def __init__(self, type_, val, pos,lineno):				#constructor for intialising
         self.type_ = type_
         self.val = val
         self.pos = pos
+	self.lineno = lineno
 
     def __str__(self):					 	        #func for printing attributes 						
-        return '%s(%s) at %s' % (self.type_, self.val, self.pos) #of the lexeme using print(Lexeme_name)
+        return '~%s~%s~%s~%s~#' % (self.type_, self.val, self.lineno,self.pos) #of the lexeme using print(Lexeme_name)
 
     
       
@@ -69,10 +70,11 @@ class Lexer():
         self.re_ws_skip = re.compile('\S')                              #a regex to detect a substring with no white spaces    
         self.re_ws = re.compile('\s|\n')                                   #a regex to detect whitespace
 
-    def input(self, buf):
+    def input(self, buf,bufLineNo):
      #function to initialise the input buffer for the lexer
         self.buf = buf
         self.pos = 0
+	self.lineno = bufLineNo
 
     def token(self):
             # Returns the next lexeme in the form of a Lexeme object(as defined at the beginning)  
@@ -97,7 +99,7 @@ class Lexer():
             if next_unit:
                 groupname = next_unit.lastgroup
                 tok_type = self.group_type[groupname]
-                tok = Lexeme(tok_type, next_unit.group(groupname), self.pos)
+                tok = Lexeme(tok_type, next_unit.group(groupname), self.pos,self.lineno)
                 self.pos = next_unit.end()
                 return tok
 
@@ -106,7 +108,7 @@ class Lexer():
             wsmatch=self.re_ws.search(self.buf, self.pos)
             initial = self.pos                  #stores the initial starting position of error
             final = wsmatch.start()
-            tok = Lexeme('TK_ERROR',self.buf[initial:final],initial)
+            tok = Lexeme('TK_ERROR',self.buf[initial:final],initial,self.lineno)
             self.pos = wsmatch.end()
             return tok
 

@@ -1,14 +1,13 @@
 import re
 import sys
-import symboltable
 from data import regexes
 
-def lexerControl(tokfilename,errorfilename,progfilename,symbolList,symbolTable):
+def lexerControl(tokfilename,errorfilename,progfilename):
     lx = Lexer(regexes)
     progfile    =  open(progfilename,"r")       
     errorfile   =  open(errorfilename,"w")
     tokfile     =  open(tokfilename,"w")
-    #symtabfile 	=  open(symtabfilename,"w")
+    
     lineno = 1
     for line in progfile:
     	lx.input(line,lineno)
@@ -20,10 +19,7 @@ def lexerControl(tokfilename,errorfilename,progfilename,symbolList,symbolTable):
                 continue        
     	   else:
     	        tokfile.write (str(tok))
-    	        #if(tok.type_ == 'TK_ID' or tok.type_ == 'TK_FUNC' or tok.type_ == 'TK_RNUM' or tok.type_ == 'TK_NUM' or tok.type_ == 'TK_STRLIT'):
-    	            #temp = symboltable.symbolTable(tok.val,tok.type_,lineno)
-    	            #symboltablelist.append(temp)
-           
+    	        
         lineno+=1
     
     tokfile.close()

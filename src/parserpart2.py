@@ -108,17 +108,19 @@ def createRulesDict(Grammar):
         RulesDict[row['Rule']].append(row['RHS'])
     return RulesDict
 
-def TokenInfoinParseTable(listofTokens,obj,nexttoken):
-    print("Reached HERE 2!\n")
+def TokenInfoinParseTree(listofTokens,obj,nexttoken,ST):
+    #print("Reached HERE 2!\n")
     if obj.val in terminals:
         temp = re.split(r'~',listofTokens[nexttoken.val])                #place of 1 returns the TK_* part of the lexeme
         if temp[1] == obj.val:
-            #print("%s %s %d"%(temp[1],obj.val,nexttoken.val))
             nexttoken.val += 1
             if obj.val in ['TK_ID','TK_FUNC','TK_NUM','TK_RNUM','TK_STRLIT']:
                 obj.add_more_details(temp[2],temp[3],temp[4])
+                if obj.val in ['TK_ID','TK_FUNC']:               
+                    prevToken = re.split(r'~',listofTokens[nexttoken.val -2])[1]            
+                    ST.addLexeme(obj.val,temp[2],temp[3],temp[4],prevToken)   #Populating Symbol table for the first time
     
     elif obj.children:
         for child in obj.children:
-            TokenInfoinParseTable(listofTokens,child, nexttoken)
+            TokenInfoinParseTree(listofTokens,child,nexttoken,ST)
 

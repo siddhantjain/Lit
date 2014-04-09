@@ -2,7 +2,7 @@ import sys
 import lexicalanalyser
 import parser_pda
 import parserpart2
-import symboltable
+import symboltablefunc
 from data import regexes
 
 #COMMAND LINE RUN STATEMENT: python src/main.py examples/test2.txt error_lit.txt tokens_lit.txt
@@ -13,11 +13,9 @@ if __name__ == '__main__':
     progfilename    =  sys.argv[1]       #TODO: Change all these to command line arguments
     errorfilename   =  sys.argv[2]
     tokfilename     =  sys.argv[3]
-
-    SymbolList = {}						
-    SymbolTable= {}						
+					
 	    
-    lexicalanalyser.lexerControl(tokfilename,errorfilename,progfilename,SymbolList,SymbolTable)
+    lexicalanalyser.lexerControl(tokfilename,errorfilename,progfilename)
 
    
     
@@ -35,22 +33,29 @@ if __name__ == '__main__':
 
     rulegenerator = parser_pda.PushDownAutomata(parsetable,grammar,listofTokens)
     generatedrules = rulegenerator.PDAOperation()
-
     
     if generatedrules[-2] == 'Syntax Error':
         errorfile.write(generatedrules[-1]) 
+    
+    
          
-    #Creating the parse Tree
+    
+    #Creating the parse Tree and symbol table
     else:
+        #Instantiating a Symbol Table
+        ST = symboltablefunc.symboltableclass()
         RulesDict = parserpart2.createRulesDict(grammar)
         nextrule = parserpart2.RuleNumber(0)
         Head = parserpart2.BuildTree(generatedrules,nextrule,RulesDict)
-        print("Reached HERE 1!\n")
+        
         nexttoken = parserpart2.TokenNumber(0)
-        parserpart2.TokenInfoinParseTable(listofTokens, Head,nexttoken)
+        parserpart2.TokenInfoinParseTree(listofTokens, Head,nexttoken,ST)       #also populates symbol table based on each node
+
+        print(ST.symbolTable)
 
         parserpart2.printtree(Head,parsetreefile)
         parserpart2.printtree2(Head,parsetreefile2,0)
         
+                
 
 

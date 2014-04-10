@@ -39,11 +39,11 @@ def printtree2(obj,parsetreefile2, level):
     temp2 = "%s"%obj.val
     
     if obj.val in terminals:
-        if obj.val in ['TK_ID','TK_FUNC','TK_NUM','TK_RNUM','TK_STRLIT']:
-            temp2 = "%s %s %s %s"%(obj.val,obj.realval,obj.lineno,obj.pos)
-            temp1 ="\t"*level + temp2 + "\n"
-        else:
-            temp1 = "\t"*level + temp2 + "\n"
+        #if obj.val in ['TK_ID','TK_FUNC','TK_NUM','TK_RNUM','TK_STRLIT']:
+        temp2 = "%s %s %s %s"%(obj.val,obj.realval,obj.lineno,obj.pos)
+        temp1 ="\t"*level + temp2 + "\n"
+        #else:
+            #temp1 = "\t"*level + temp2 + "\n"
     else:
         temp1 = "\t"*level + temp2 + ":\n"
     
@@ -114,11 +114,11 @@ def TokenInfoinParseTree(listofTokens,obj,nexttoken,ST):
         temp = re.split(r'~',listofTokens[nexttoken.val])                #place of 1 returns the TK_* part of the lexeme
         if temp[1] == obj.val:
             nexttoken.val += 1
-            if obj.val in ['TK_ID','TK_FUNC','TK_NUM','TK_RNUM','TK_STRLIT']:
-                obj.add_more_details(temp[2],temp[3],temp[4])
-                if obj.val in ['TK_ID','TK_FUNC']:               
-                    prevToken = re.split(r'~',listofTokens[nexttoken.val -2])[1]            
-                    ST.addLexeme(obj.val,temp[2],temp[3],temp[4],prevToken)   #Populating Symbol table for the first time
+            #if obj.val in ['TK_ID','TK_FUNC','TK_NUM','TK_RNUM','TK_STRLIT']:
+            obj.add_more_details(temp[2],temp[3],temp[4])
+            if obj.val in ['TK_ID','TK_FUNC']:               
+                prevToken = re.split(r'~',listofTokens[nexttoken.val -2])[1]            
+                ST.addLexeme(obj.val,temp[2],temp[3],temp[4],prevToken)   #Populating Symbol table for the first time
     
     elif obj.children:
         for child in obj.children:

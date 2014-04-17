@@ -120,6 +120,8 @@ class ASTClass(object):
             return ASTobj
         
         elif(PTobj.val == '<function>'):
+            #Each function is representaed by its TK_FUNC token
+            #A function has the following children - TK_IPP,TK_OPP,<declrtv_stmts>,<O_stmts>,<return_stmt>.
             ASTNodefuncname = ASTNode()
             #print(PTobj.val)
             ASTNodefuncname = ASTNode.CopyValues(ASTNodefuncname,PTobj.children[0])
@@ -128,9 +130,15 @@ class ASTClass(object):
             ASTNodeOPP = self.BuildAST(ASTobj,PTobj.children[2])                #Output Parameters
             ASTNodefuncname.children.append(ASTNodeOPP)
             if PTobj.children[4].children:                    #If function contains any statements - decl, other, return
+                #Gets all declarations under one node
                 ASTNodeDeclStmts = ASTNode(val = PTobj.children[4].children[0].val)
                 ASTNodeDeclStmts = self.BuildAST(ASTNodeDeclStmts,PTobj.children[4].children[0])
                 ASTNodefuncname.children.append(ASTNodeDeclStmts)
+                #Gets all statements in the function under one node
+                #ASTNodeOStmts = ASTNode(val = PTobj.children[4].children[1].val)
+                #ASTNodeOStmts = self.BuildAST(ASTNodeDeclStmts,PTobj.children[4].children[1])
+                #ASTNodefuncname.children.append(ASTNodeOStmts)
+                
             return ASTNodefuncname
             
         elif(PTobj.val == '<input_parameters>'):

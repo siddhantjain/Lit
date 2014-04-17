@@ -7,6 +7,8 @@ import AST
 from data import regexes
 
 #COMMAND LINE RUN STATEMENT: python src/main.py examples/test2.txt error_lit.txt tokens_lit.txt
+#GIT ADD: git add src/main.py src/lexicalanalyser.py src/symboltablefunc.py src/parser_pda.py src/parserpart2.py src/data.py src/AST.py
+
 
 #weird way, but this is how main can start
 if __name__ == '__main__':

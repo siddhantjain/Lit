@@ -93,6 +93,7 @@ class PushDownAutomata():
        
 
          while(topOfStack != '$'):
+            #print('TOS: %s and TOI:%s'%(topOfStack,topOfInput))
             if topOfStack in nonTerminals:                                          # if topOfStack is a nonTerminal    
                 nextRule = parsetable[topOfStack][topOfInput]
                 if nextRule == '':              #check this condition

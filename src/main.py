@@ -3,6 +3,7 @@ import lexicalanalyser
 import parser_pda
 import parserpart2
 import symboltablefunc
+import AST
 from data import regexes
 
 #COMMAND LINE RUN STATEMENT: python src/main.py examples/test2.txt error_lit.txt tokens_lit.txt
@@ -19,7 +20,7 @@ if __name__ == '__main__':
 
    
     
-
+    errorfile = open(errorfilename,"w+")
     parsetreefile   =  open("parsetree.txt","w+")
     parsetreefile2 	= open("parsetree2.txt","w+")
     parsetable = 'ParseTable.csv'
@@ -46,15 +47,22 @@ if __name__ == '__main__':
         ST = symboltablefunc.symboltableclass()
         RulesDict = parserpart2.createRulesDict(grammar)
         nextrule = parserpart2.RuleNumber(0)
-        Head = parserpart2.BuildTree(generatedrules,nextrule,RulesDict)
+        PTHead = parserpart2.BuildTree(generatedrules,nextrule,RulesDict)
         
         nexttoken = parserpart2.TokenNumber(0)
-        parserpart2.TokenInfoinParseTree(listofTokens, Head,nexttoken,ST)       #also populates symbol table based on each node
+        parserpart2.TokenInfoinParseTree(listofTokens, PTHead,nexttoken,ST)       #also populates symbol table based on each node
 
-        print(ST.symbolTable)
+        #print(ST.symbolTable)
 
-        parserpart2.printtree(Head,parsetreefile)
-        parserpart2.printtree2(Head,parsetreefile2,0)
+        parserpart2.printtree(PTHead,parsetreefile)
+        parserpart2.printtree2(PTHead,parsetreefile2,0)
+        
+        
+        #AST Begins
+        ASTobj = AST.ASTClass(PTHead)
+        ASTobj.ASTHead = ASTobj.BuildAST(ASTobj.ASTHead,PTHead)
+        ASTobj.PrintAST(ASTobj.ASTHead,0)
+        
         
                 
 

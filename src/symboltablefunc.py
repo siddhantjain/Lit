@@ -23,7 +23,7 @@ class symboltableclass:
                 dtype.append('procname')
                 dlist = [(lineno,pos)]
             else:
-                print (prevToken)
+                #print (prevToken)
                 if prevToken == 'TK_INT':
                     dtype.append('int')
                 elif prevToken == 'TK_FLOAT':

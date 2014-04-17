@@ -35,6 +35,8 @@ class TokenNumber(object):
     def __init__(self,val):
         self.val = val
 
+
+
 def printtree2(obj,parsetreefile2, level):
     temp2 = "%s"%obj.val
     
@@ -109,7 +111,7 @@ def createRulesDict(Grammar):
     return RulesDict
 
 def TokenInfoinParseTree(listofTokens,obj,nexttoken,ST):
-    #print("Reached HERE 2!\n")
+    #print("Reached HERE 2! %s " %obj.val)
     if obj.val in terminals:
         temp = re.split(r'~',listofTokens[nexttoken.val])                #place of 1 returns the TK_* part of the lexeme
         if temp[1] == obj.val:
@@ -117,7 +119,11 @@ def TokenInfoinParseTree(listofTokens,obj,nexttoken,ST):
             #if obj.val in ['TK_ID','TK_FUNC','TK_NUM','TK_RNUM','TK_STRLIT']:
             obj.add_more_details(temp[2],temp[3],temp[4])
             if obj.val in ['TK_ID','TK_FUNC']:               
-                prevToken = re.split(r'~',listofTokens[nexttoken.val -2])[1]            
+                #print('%d'%nexttoken.val)
+                if (nexttoken.val < 2):                                 #Note to Sidj-first TK_FUNC declared does not have a previous token
+                    prevToken = re.split(r'~',listofTokens[0])[1]
+                else:
+                    prevToken = re.split(r'~',listofTokens[nexttoken.val -2])[1]            
                 ST.addLexeme(obj.val,temp[2],temp[3],temp[4],prevToken)   #Populating Symbol table for the first time
     
     elif obj.children:

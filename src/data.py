@@ -109,3 +109,12 @@ terminals = [
 'TK_COMMA',	'TK_GLOBAL',	'TK_VOID',	'$',	'TK_STRLIT'
 ]
 
+BoolTerms = [
+'TK_AND','TK_OR','TK_EQ','TK_LTE',
+'TK_LESS','TK_GRTR','TK_GTE','TK_NOTEQ',
+'TK_NOT','TK_MINUS','TK_MUL','TK_DIV',
+'TK_ORD','TK_CRD','TK_NUM','TK_RNUM']
+
+ArithTerms = [
+'TK_PLUS','TK_MINUS','TK_MUL','TK_DIV',
+'TK_ORD','TK_CRD','TK_NUM','TK_RNUM']

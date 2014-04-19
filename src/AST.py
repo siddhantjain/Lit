@@ -1,5 +1,5 @@
 import parserpart2
-from data import terminals, nonTerminals
+from data import terminals, nonTerminals, BoolTerms, ArithTerms
 
 
 class ASTNode(object):
@@ -254,8 +254,10 @@ class ASTClass(object):
             return ASTobj
             
         elif(PTobj.val=='<Boolean_expression>'):
-            ASTNodeBE = ASTNode()
-            ASTNodeBE = ASTNode.CopyValues(ASTNodeBE,PTobj)
+            ASTNodeBE = ASTNode(val = PTobj.val)
+            ASTNodeBE = self.BuildBE(ASTNodeBE,PTobj)
+            #ASTNodeBE = ASTNode()
+            #ASTNodeBE = ASTNode.CopyValues(ASTNodeBE,PTobj)
             #print('Printing BE')
             #self.PrintASTtoTerm(ASTNodeBE,0)
             return ASTNodeBE
@@ -315,8 +317,9 @@ class ASTClass(object):
             return ASTobj
         
         elif(PTobj.val=='<arithmetic_expression>'):
-            ASTNodeAE = ASTNode()
-            ASTNodeAE = ASTNode.CopyValues(ASTNodeAE,PTobj)
+            ASTNodeAE = ASTNode(val = PTobj.val)
+            ASTNodeAE = self.BuildAE(ASTNodeAE,PTobj)
+            #ASTNodeAE = ASTNode.CopyValues(ASTNodeAE,PTobj)
             #print('Printing AE')
             #self.PrintAST(ASTNodeAE,0)
             return ASTNodeAE
@@ -338,11 +341,44 @@ class ASTClass(object):
         '''
     
     
+    def BuildAE(self,ASTobj,PTobj):
+        if (PTobj.val == '<id>'):
+            ASTobj = self.BuildAST(ASTobj,PTobj)
+            return ASTobj
+        elif PTobj.val in ArithTerms:
+            newnode = ASTNode()
+            newnode = ASTNode.CopyValues(newnode,PTobj)
+            ASTobj.children.append(newnode)
+        if PTobj.children:
+            for child in PTobj.children:
+                ASTobj = self.BuildAE(ASTobj,child)
+        return ASTobj
+    
+
+
+    
+    def BuildBE(self,ASTobj,PTobj):
+        if (PTobj.val == '<id>'):
+            ASTobj = self.BuildAST(ASTobj,PTobj)
+            return ASTobj
+        elif PTobj.val in BoolTerms:
+            newnode = ASTNode()
+            newnode = ASTNode.CopyValues(newnode,PTobj)
+            ASTobj.children.append(newnode)
+        if PTobj.children:
+            for child in PTobj.children:
+                ASTobj = self.BuildBE(ASTobj,child)
+        return ASTobj
     
     def PrintAST(self,obj,ASTfile,level):
+        temp2 = "%s"%obj.val
         #print('Reached here %s'%obj.val)
-        temp = '\t'*level + obj.val + '\n'
-        ASTfile.write(temp)
+        if obj.val in terminals:
+            temp2 = "%s %s %s %s"%(obj.val,obj.realval,obj.lineno,obj.pos)
+            temp1 ="\t"*level + temp2 + "\n"
+        else:
+            temp1 = "\t"*level + temp2 + ":\n"
+        ASTfile.write(temp1)
         level+=1;
         if obj.children:
             for child in obj.children:
@@ -355,22 +391,3 @@ class ASTClass(object):
         if obj.children:
             for child in obj.children:
                 self.PrintASTtoTerm(child,level)
-    
-    def CreateAST(self,PTobj,ASTobj):
-        if(PTobj.val == '<assignm_stmt>'):
-            newnode = ASTNode()
-            newnode.realval = 'TK_ASSIGN'
-            leftchild = ASTNode()
-            temp = PTtraverse(PTobj.children[0],'TK_ID')
-            leftchild.val = temp.val
-            leftchild.realval = temp.realval
-            leftchild.lineno = temp.lineno
-            leftchild.pos = temp.pos
-            newnode.children.append(leftchild)
-            rightchild = ASTNode()
-            
-            
-        
-        if(PTobj.val == '<arithmetic_expression>'):
-            newnode = ASTNode();
-            

@@ -4,6 +4,7 @@ import parser_pda
 import parserpart2
 import symboltablefunc
 import AST
+import additionalfunctions
 from data import regexes
 
 #COMMAND LINE RUN STATEMENT: python src/main.py examples/test2.txt error_lit.txt tokens_lit.txt
@@ -68,6 +69,10 @@ if __name__ == '__main__':
         ASTobj.PrintAST(ASTobj.ASTHead,ASTfile,0)
         
         
-                
+        #Updating Symbol Table
+        length = additionalfunctions.retNumOfScope(ASTobj.ASTHead)        
+        additionalfunctions.updateScope(ASTobj.ASTHead,ST,length)
+        
+        #print(ST.symbolTable);       
 
 

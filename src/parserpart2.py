@@ -120,11 +120,12 @@ def TokenInfoinParseTree(listofTokens,obj,nexttoken,ST):
             obj.add_more_details(temp[2],temp[3],temp[4])
             if obj.val in ['TK_ID','TK_FUNC']:               
                 #print('%d'%nexttoken.val)
+                followingToken = re.split(r'~',listofTokens[nexttoken.val])[1]
                 if (nexttoken.val < 2):                                 #Note to Sidj-first TK_FUNC declared does not have a previous token
                     prevToken = re.split(r'~',listofTokens[0])[1]
                 else:
                     prevToken = re.split(r'~',listofTokens[nexttoken.val -2])[1]            
-                ST.addLexeme(obj.val,temp[2],temp[3],temp[4],prevToken)   #Populating Symbol table for the first time
+                ST.addLexeme(obj.val,temp[2],temp[3],temp[4],-1,prevToken,followingToken)   #Populating Symbol table for the first time
     
     elif obj.children:
         for child in obj.children:

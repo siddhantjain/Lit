@@ -2,53 +2,77 @@
 #   Also contains the Symbol table datastructure
 import sys
 
-keyList = []                                            #list of all keys in the symbol table
+                                           #list of all keys in the symbol table
 class symboltableclass:
 
     def __init__(self):
         self.symbolTable = {}
+        self.keyList = []
 
-    def hashfunction(self,name,lineno,pos):                   #calculates key by assuming that the name is in a system with base 62 
+    def hashfunction(self,name,scope=-1):                   #calculates key by assuming that the name is in a system with base 62 
         key = 0;        
         for i in range(len(name)):                      # 52 UC and LC alphabest  + 10 digits
             key = key + ord(name[i]) * (62**i)
-                                
+            key =  key+ int(scope)                            #There can be only one unique id in given scope                    
         return key 
 
-    def addLexeme(self,token,name,lineno,pos,prevToken):
-        hashkey = self.hashfunction(name,lineno,pos)
-        if(hashkey not in keyList):
+    def addLexeme(self,token,name,lineno,pos,scope = -1,prevToken='NULL',followingToken='NULL'):
+        hashkey = self.hashfunction(name,scope)
+        
+        if(hashkey not in self.keyList):
             dtype = []
+            rlist = []
+            dlist = []
+            array = bool(0)
+            
             if token == 'TK_FUNC':
                 dtype.append('procname')
-                dlist = [(lineno,pos)]
+                if prevToken == 'TK_END' or prevToken == 'NULL':
+                    dlist = [(lineno,pos)]
+                    scope = 0;
+                elif prevToken == 'TK_CALL':
+                    rlist.append((lineno,pos)) 
+                    
+                    
             else:
                 #print (prevToken)
                 if prevToken == 'TK_INT':
                     dtype.append('int')
+                    dlist = [(lineno,pos)]
                 elif prevToken == 'TK_FLOAT':
                     dtype.append('float')
-                dlist = [(lineno,pos)]
+                    dlist = [(lineno,pos)]
+                else:
+                    rlist.append((lineno,pos))
+
+                if followingToken == 'TK_OSQ':
+                    array = bool(1)
+                    scope = 0                                   #note: arrays are global by default
+                if followingToken == 'TK_GLOBAL':                           
+                    scope = 0
+                
             
-            rlist=[]
-            symboltableRow =    {'key' : hashkey,
-                                'name' : name,
+            
+            symboltableRow =    {'name' : name,
                                 'dtype': dtype,
                                 'value': 0,
                                 'size': 0,
-                                'array':bool(0),          #default value. Update it later
-                                'scope':0,
+                                'array':array,          #default value. Update it later
+                                'scope':scope,
                                 'declared': dlist,                                          
                                 'referred': rlist,
                                 'other' : 'NULL'}
-            keyList.append(hashkey)
+            self.keyList.append(hashkey)
             self.symbolTable[hashkey]=symboltableRow
 
         else:
+
             if token == 'TK_FUNC':
-                if prevToken == 'TK_CALL':                                               #lexeme when function was called
+                if prevToken == 'TK_CALL':                   #lexeme when function was called
+                                                                  
                     self.symbolTable[hashkey]['referred'].append((lineno,pos))
                 else:                                                                   #lexeme in case of function overloading
+                    print(prevToken);
                     self.symbolTable[hashkey]['declared'].append((lineno,pos))
 
             elif (prevToken == 'TK_INT' or prevToken == 'TK_FLOAT'):                       #lexeme when same identifier is declared again
@@ -56,4 +80,27 @@ class symboltableclass:
             else:                                                                       # when identifier is referred
                 self.symbolTable[hashkey]['referred'].append((lineno,pos))
 
-                    
+
+        #function to change one attribute value of an existing entry    
+    def updateLexeme(self,ASTObj,scope,attribute):    
+        if(self.hashfunction(ASTObj.realval,scope) in self.keyList):
+            if attribute == 'referred': #add the line,pos where the variable was referred
+                self.symbolTable[self.hashfunction(ASTObj.realval,scope)][attribute].append((ASTObj.lineno,ASTObj.pos))
+            #add other conditions based on the attribute entered
+
+    
+
+             
+'''  
+        elif(self.hashfunction(ASTObj.realval) in keylist):                               #case when variable is in symtab but scope not updated
+            tempsymtablerow = symbolTable[self.hashfunction(ASTObj.realval)]
+            if (len(tempsymtablerow['declared']) > 1 ):                         #case when same variable has been declared in mul functions
+                tempsymtablerow['declared'] = [(ASTObj.lineno,ASTObj.pos)]
+                symbolTable[self.hashfunction(ASTObj.realval).remove([(ASTObj.lineno,ASTObj.pos)])]
+            tempsymtablerow['scope'] = scope
+            tempsymtablerow['key']=self.hashfunction(name,scope)
+            
+            
+            return 0                                            #key not found. Return 0
+       
+'''

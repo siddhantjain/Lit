@@ -9,6 +9,7 @@ class ASTNode(object):
         self.lineno = lineno
         self.pos = pos
         self.idarray = idarray
+        self.level = -1
         self.children = []
     
     def CopyValues(ASTobj,PTobj):
@@ -319,6 +320,7 @@ class ASTClass(object):
         elif(PTobj.val=='<arithmetic_expression>'):
             ASTNodeAE = ASTNode(val = PTobj.val)
             ASTNodeAE = self.BuildAE(ASTNodeAE,PTobj)
+            ASTNodeAE = self.BuildAE2(ASTNodeAE)
             #ASTNodeAE = ASTNode.CopyValues(ASTNodeAE,PTobj)
             #print('Printing AE')
             #self.PrintAST(ASTNodeAE,0)
@@ -354,6 +356,37 @@ class ASTClass(object):
                 ASTobj = self.BuildAE(ASTobj,child)
         return ASTobj
     
+    def BuildAE2(self,ASTobj):
+        if(len(ASTobj.children)==1):
+            return ASTobj
+        
+        elif(len(ASTobj.children)==3):
+            opnode = ASTNode()
+            opnode = ASTNode.CopyValues(opnode,ASTobj.children[1])
+            leftchild = ASTNode()
+            leftchild = ASTNode.CopyValues(leftchild,ASTobj.children[0])
+            rightchild = ASTNode()
+            rightchild = ASTNode.CopyValues(rightchild,ASTobj.children[2])
+            opnode.children.append(leftchild)
+            opnode.children.append(rightchild)
+            del ASTobj.children[:]
+            ASTobj.children.append(opnode)
+            return ASTobj
+        
+        else:
+            level = 0
+            for i in range(0,len(ASTobj.children)):
+                if(ASTobj.children[i].val=='TK_ORD'):
+                    level +=1
+                    
+                elif(ASTobj.children[i].val=='TK_CRD'):
+                    level -=1
+                    
+                else:
+                    ASTobj.children[i].level = level
+                    print('%s level=%d'%(ASTobj.children[i].val,ASTobj.children[i].level))
+                    
+            return ASTobj
 
 
     

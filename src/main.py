@@ -84,8 +84,8 @@ if __name__ == '__main__':
 
 
         # Semantic Analysis functions
-        synerrors = []    
-        semanticanalyser.funcIterator(ASTobj.ASTHead,ST,functionTab,synerrors)
+        #synerrors = []    
+        #semanticanalyser.funcIterator(ASTobj.ASTHead,ST,functionTab,synerrors)
 
         
 

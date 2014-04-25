@@ -75,7 +75,7 @@ if __name__ == '__main__':
         
         # print(ST.symbolTable);       
 
-        additionalfunctions.updateFunctionTab(ASTobj.ASTHead,functionTab,functionKeyList)
+        #additionalfunctions.updateFunctionTab(ASTobj.ASTHead,functionTab,functionKeyList)
         
         #print(functionTab)
         #print(functionKeyList)

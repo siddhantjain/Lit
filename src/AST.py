@@ -82,13 +82,13 @@ class ASTClass(object):
             newnode = ASTNode.CopyValues(newnode,PTobj.children[0].children[0])         #Data Type of Variable INT or FLOAT
             newnode2 = ASTNode()
             newnode2 = ASTNode.CopyValues(newnode2,PTobj.children[1])
-            if (PTobj.children[2].children[0] == '<global_stmt>'):                      #If Single Variable Not Array
+            if (PTobj.children[2].children[0].val == '<global_stmt>'):                      #If Single Variable Not Array
                 if PTobj.children[2].children[0].children:                              #If Variable is global type
                     newnode3 = ASTNode()
                     newnode3 = ASTNode.CopyValues(newnode3,PTobj.children[2].children[0].children[0])
                     newnode2.children.append(newnode3)
                     
-            elif(PTobj.children[2].children[0] == 'TK_CSQ'):                      #If Array
+            elif(PTobj.children[2].children[0].val == 'TK_OSQ'):                      #If Array
                 newnode3 = ASTNode()
                 newnode3 = ASTNode.CopyValues(newnode3,PTobj.children[2].children[1])
                 newnode.idarray = 1

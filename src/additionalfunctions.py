@@ -35,15 +35,53 @@ def updateReference(ASTObj,SymTab,scope):
             SymTab.updateLexeme(ASTObj,scope,'referred')
     if ASTObj.children:
             for child in ASTObj.children:
-                updateReference(child,SymTab,scope)  
+                updateReference(child,SymTab,scope)
 
+  
+#to remove duplicate entries in the symbol table
 def cleanSymTab(SymTab):
     for key in SymTab.keyList:
         if SymTab.symbolTable[key]['scope'] == -1:
             del SymTab.symbolTable[key]
 
-
-#remove duplicate entries which were made in the symbol table
-#def cleanSymTab(SymTab):
+#function table contains information on function definitions
+def updateFunctionTab(ASTHead, FuncTab, FuncKeyList):
+    for eachfunction in ASTHead.children:
+        if eachfunction.val == 'TK_FUNC':
+            inputparamlist = []
+            outputparamlist = []
+            for parametertype in eachfunction.children:
+                if parametertype.val == 'TK_IPP':
+                    for parameter in parametertype.children:
+                        #store the dtype of the parameter along with its name
+                        inputparamlist.append(parameter.val)
+                        #print(parameter.val, parameter.children[0].realval)
+                        #inputparamlist.append((parameter.val, parameter.children[0].realval))
+                
+                if parametertype.val == 'TK_OPP':
+                    for parameter in parametertype.children:
+                        #store the dtype of the parameter along with its name
+                        outputparamlist.append(parameter.val)
+                        #outputparamlist.append((parameter.val, parameter.children[0].realval))
+            #every function is uniquely identifined by the lineno,pos of its declaration
+            funckey = eachfunction.lineno + eachfunction.pos
+            
+            #creating a look up for the keys associated with each function name
+            #multiple keys will be associated in case of function overloading
+            if eachfunction.realval not in FuncKeyList:
+                FuncKeyList[eachfunction.realval] = [funckey]
+            else:
+                FuncKeyList[eachfunction.realval].append(funckey)
+             
+            
+            
+            FuncTablerow = {'funcName': eachfunction.realval,
+                            'input_parameters': inputparamlist,
+                            'output_parameters': outputparamlist}
+            #print(FuncTablerow)
+            FuncTab[funckey] = FuncTablerow
+            
+                
+            
 
                                                                      

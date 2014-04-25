@@ -37,10 +37,10 @@ class symboltableclass:
             else:
                 #print (prevToken)
                 if prevToken == 'TK_INT':
-                    dtype.append('int')
+                    dtype.append('TK_INT')
                     dlist = [(lineno,pos)]
                 elif prevToken == 'TK_FLOAT':
-                    dtype.append('float')
+                    dtype.append('TK_FLOAT')
                     dlist = [(lineno,pos)]
                 else:
                     rlist.append((lineno,pos))

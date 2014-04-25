@@ -386,7 +386,7 @@ class ASTClass(object):
     
     def PrintASTtoTerm(self,obj,level):
         temp = '\t'*level + obj.val
-        print('%s'%temp)
+        print('%s'%temp)                                   
         level+=1;
         if obj.children:
             for child in obj.children:

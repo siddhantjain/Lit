@@ -72,8 +72,8 @@ class symboltableclass:
                                                                   
                     self.symbolTable[hashkey]['referred'].append((lineno,pos))
                 else:                                                                   #lexeme in case of function overloading
-                    print(prevToken);
-                    self.symbolTable[hashkey]['declared'].append((lineno,pos))
+                    #print(prevToken);
+                    self.symbolTable[hashkey]['declared'].append((lineno,pos))          # can be used to index in functable in case of Func. OverL.
 
             elif (prevToken == 'TK_INT' or prevToken == 'TK_FLOAT'):                       #lexeme when same identifier is declared again
                 self.symbolTable[hashkey]['declared'].append((lineno,pos))

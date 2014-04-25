@@ -5,7 +5,7 @@ import parserpart2
 import symboltablefunc
 import AST
 import additionalfunctions
-from data import regexes
+from data import regexes, functionTab, functionKeyList
 
 #COMMAND LINE RUN STATEMENT: python src/main.py examples/test2.txt error_lit.txt tokens_lit.txt
 #GIT ADD: git add src/main.py src/lexicalanalyser.py src/symboltablefunc.py src/parser_pda.py src/parserpart2.py src/data.py src/AST.py
@@ -73,6 +73,10 @@ if __name__ == '__main__':
         length = additionalfunctions.retNumOfScope(ASTobj.ASTHead)        
         additionalfunctions.updateScope(ASTobj.ASTHead,ST,length)
         
-        #print(ST.symbolTable);       
+        # print(ST.symbolTable);       
 
+        additionalfunctions.updateFunctionTab(ASTobj.ASTHead,functionTab,functionKeyList)
+        
+        #print(functionTab)
+        #print(functionKeyList)
 

@@ -118,3 +118,8 @@ BoolTerms = [
 ArithTerms = [
 'TK_PLUS','TK_MINUS','TK_MUL','TK_DIV',
 'TK_ORD','TK_CRD','TK_NUM','TK_RNUM']
+
+# stores input paramter and output parameter values for each function name. indexed by lineno+pos of the function declration
+functionTab = {}
+# stores the keys associated with a function name. | useful in case of function overloading
+functionKeyList = {}

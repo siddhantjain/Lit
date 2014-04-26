@@ -254,14 +254,7 @@ class ASTClass(object):
             ASTobj.children.append(ASTNodeOStmts)
             return ASTobj
             
-        elif(PTobj.val=='<Boolean_expression>'):
-            ASTNodeBE = ASTNode(val = PTobj.val)
-            ASTNodeBE = self.BuildBE(ASTNodeBE,PTobj)
-            #ASTNodeBE = ASTNode()
-            #ASTNodeBE = ASTNode.CopyValues(ASTNodeBE,PTobj)
-            #print('Printing BE')
-            #self.PrintASTtoTerm(ASTNodeBE,0)
-            return ASTNodeBE
+        
         
         elif(PTobj.val=='<cond_stmt>'):
             ASTobj = ASTNode.CopyValues(ASTobj,PTobj.children[0])       #Pivot for cond_stmt is TK_IF
@@ -317,14 +310,79 @@ class ASTClass(object):
                 ASTobj.children.append(ASTNodeFunCall)
             return ASTobj
         
-        elif(PTobj.val=='<arithmetic_expression>'):
-            ASTNodeAE = ASTNode(val = PTobj.val)
-            ASTNodeAE = self.BuildAE(ASTNodeAE,PTobj)
-            ASTNodeAE = self.BuildAE2(ASTNodeAE)
+        
+        #elif(PTobj.val=='<arithmetic_expression>'):
+            #ASTNodeAE = ASTNode(val = PTobj.val)
+            #ASTNodeAE = self.BuildAE(ASTNodeAE,PTobj)
+            #ASTNodeAE = self.BuildAE2(ASTNodeAE)
             #ASTNodeAE = ASTNode.CopyValues(ASTNodeAE,PTobj)
             #print('Printing AE')
             #self.PrintAST(ASTNodeAE,0)
-            return ASTNodeAE
+            #return ASTNodeAE
+        
+        
+        elif(PTobj.val=='<arithmetic_expression>'):
+            ASTNodeleftc = self.BuildAST(ASTobj,PTobj.children[0])
+            
+            if PTobj.children[1].children:
+                ASTNodeA_E = self.BuildAST(ASTobj,PTobj.children[1])
+                ASTNodeA_E.children.append(ASTNodeleftc)
+                return ASTNodeA_E
+                
+            return ASTNodeleftc
+        
+        elif(PTobj.val=='<term>'):
+            ASTNodeleftc = self.BuildAST(ASTobj,PTobj.children[0])
+            if PTobj.children[1].children:
+                ASTNodeT_E = self.BuildAST(ASTobj,PTobj.children[1])
+                ASTNodeT_E.children.append(ASTNodeleftc)
+                return ASTNodeT_E
+            
+            return ASTNodeleftc
+                
+        
+        elif(PTobj.val == '<a_e>'):
+            ASTNodeOp = ASTNode()
+            ASTNodeOp = ASTNode.CopyValues(ASTNodeOp,PTobj.children[0])
+            ASTNoderightc = self.BuildAST(ASTobj,PTobj.children[1])
+            ASTNodeOp.children.append(ASTNoderightc)
+            return ASTNodeOp
+            
+        elif(PTobj.val == '<t_e>'):
+            ASTNodeOp = ASTNode()
+            ASTNodeOp = ASTNode.CopyValues(ASTNodeOp,PTobj.children[0])
+            ASTNoderightc = self.BuildAST(ASTobj,PTobj.children[1])
+            ASTNodeOp.children.append(ASTNoderightc)
+            return ASTNodeOp
+        
+        elif(PTobj.val=='<factor>'):
+            if(PTobj.children[0].val == '<var>'):
+                ASTNodeVar = self.BuildAST(ASTobj,PTobj.children[0])
+                return ASTNodeVar
+                
+            elif(PTobj.children[0].val=='TK_ORD'):
+                ASTNodeAE = self.BuildAST(ASTobj,PTobj.children[1])
+                return ASTNodeAE
+        
+        elif(PTobj.val == '<var>'):
+            if(PTobj.children[0].val == '<id>'):
+                #ASTobj = self.BuildAST(ASTobj,PTobj.children[0].children[0].children[0].children[0])
+                ASTNodeid = self.CreateAST1(PTobj.children[0],'<id>')
+                return ASTNodeid
+            else:
+                ASTNodenum = ASTNode()
+                ASTNodenum = ASTNode.CopyValues(ASTNodenum,PTobj.children[0])
+                return ASTNodenum
+        
+        elif(PTobj.val=='<Boolean_expression>'):
+            ASTNodeBE = ASTNode(val = PTobj.val)
+            ASTNodeBE = self.BuildBE(ASTNodeBE,PTobj)
+            #ASTNodeBE = ASTNode()
+            #ASTNodeBE = ASTNode.CopyValues(ASTNodeBE,PTobj)
+            #print('Printing BE')
+            #self.PrintASTtoTerm(ASTNodeBE,0)
+            return ASTNodeBE
+        
         
         elif(PTobj.val=='<id>'):
             #print(PTobj.val)

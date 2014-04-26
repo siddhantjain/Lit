@@ -63,7 +63,9 @@ class symboltableclass:
                                 'scope':scope,
                                 'declared': dlist,                                          
                                 'referred': rlist,
-                                'other' : 'NULL'}
+                                'assgnreg': bool(0),
+                                'address': 'NULL',
+                                'register': 'NULL'}
             self.keyList.append(hashkey)
             self.symbolTable[hashkey]=symboltableRow
 

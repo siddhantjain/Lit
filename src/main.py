@@ -73,7 +73,8 @@ if __name__ == '__main__':
         
         
         #Updating Symbol Table
-        length = additionalfunctions.retNumOfScope(ASTobj.ASTHead)        
+        length = additionalfunctions.retNumOfScope(ASTobj.ASTHead)
+        #print(length)        
         additionalfunctions.updateScope(ASTobj.ASTHead,ST,length)
         
         #print(ST.symbolTable);
@@ -81,7 +82,7 @@ if __name__ == '__main__':
 
         additionalfunctions.updateFunctionTab(ASTobj.ASTHead,functionTab,functionKeyList)
         
-        #print(functionTab)
+        print(functionTab)
         #print(functionKeyList)
 
 

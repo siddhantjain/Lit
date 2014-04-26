@@ -91,4 +91,6 @@ def identifierChecker(ASTObj,SymTab,scope,errors):
             for child in ASTObj.children:
                 identifierChecker(child,SymTab,scope,errors)
 
-#def whileChecker
+'''def breakChecker(ASTObj, SymTab, scope,errors):
+    whileranges = []        #stores the range of lineno,pos where a break is allowed'''
+    

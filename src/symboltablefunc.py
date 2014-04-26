@@ -25,7 +25,7 @@ class symboltableclass:
             dlist = []
             array = bool(0)
             
-            if token == 'TK_FUNC':
+            if token == 'TK_FUNC' or token == 'TK_MAIN':
                 dtype = 'procname'
                 if prevToken == 'TK_END' or prevToken == 'NULL':
                     dlist = [(lineno,pos)]

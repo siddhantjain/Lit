@@ -1,6 +1,6 @@
 # methods to update the symbol table for furhter checking
 import sys
-
+from data import functionScope
 def retNumOfScope(ASTHead):              #takes the number of children of AST head to find the number of scopes
     numOfScope = len(ASTHead.children)
     return numOfScope
@@ -54,8 +54,9 @@ def cleanSymTab(SymTab):
 
 #function table contains information on function definitions
 def updateFunctionTab(ASTHead, FuncTab, FuncKeyList):
+    totScope = len(ASTHead.children)
     for eachfunction in ASTHead.children:
-        if eachfunction.val == 'TK_FUNC':
+        if eachfunction.val == 'TK_FUNC' or eachfunction.val == 'TK_MAIN' :
             inputparamlist = []
             outputparamlist = []
             for parametertype in eachfunction.children:
@@ -85,10 +86,11 @@ def updateFunctionTab(ASTHead, FuncTab, FuncKeyList):
             
             FuncTablerow = {'funcName': eachfunction.realval,
                             'input_parameters': inputparamlist,
-                            'output_parameters': outputparamlist}
+                            'output_parameters': outputparamlist,
+                            'scope':totScope }
             #print(FuncTablerow)
             FuncTab[funckey] = FuncTablerow
-            
+            totScope -=1
                 
             
 

@@ -122,7 +122,9 @@ ArithTerms = [
 ArithOps = [
 'TK_PLUS','TK_MINUS','TK_MUL','TK_DIV']
 
-# stores input paramter and output parameter values for each function name. indexed by lineno+pos of the function declration
+# stores input paramter and output parameter values for each function name. indexed by lineno+pos of the function declaration
 functionTab = {}
 # stores the keys associated with a function name. | useful in case of function overloading
 functionKeyList = {}
+#Dictionary to store the scope of all variables in a given function
+functionScope = {}

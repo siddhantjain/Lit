@@ -21,6 +21,7 @@ def updateScope(ASTHead,SymTab,numOfScope):
                                          numOfScope, 
                                          declaration.val,
                                          'NULL')
+                        
 
 
             elif statement.val == '<O_stmts>' or statement.val == 'TK_RET':
@@ -40,9 +41,16 @@ def updateReference(ASTObj,SymTab,scope):
   
 #to remove duplicate entries in the symbol table
 def cleanSymTab(SymTab):
+    listkeystoremove = []
     for key in SymTab.keyList:
         if SymTab.symbolTable[key]['scope'] == -1:
-            del SymTab.symbolTable[key]
+           del SymTab.symbolTable[key]
+           listkeystoremove.append(key)
+          
+    for key in listkeystoremove:
+        SymTab.keyList.remove(key)
+           
+             
 
 #function table contains information on function definitions
 def updateFunctionTab(ASTHead, FuncTab, FuncKeyList):

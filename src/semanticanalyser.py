@@ -11,6 +11,7 @@ def funcIterator(ASTHead,SymTab,FuncTab, errors):
     for eachfunction in ASTHead.children: 
         for eachstatement in eachfunction.children:
             if eachstatement.val == '<O_stmts>':
+                identifierChecker(eachstatement,SymTab,numOfScope,errors)
                 funcChecker(eachstatement,SymTab,FuncTab,numOfScope,errors)
             
         numOfScope-=1
@@ -51,8 +52,6 @@ def funcChecker(ASTObj,SymTab,FuncTab,scope,errors):
                     flag1 = 1;
     
             for eachparamlist in funcdefparams:
-                print(callparams)
-                print(eachparamlist)
                 if callparams == eachparamlist:
                     flag2 = 1;     
     
@@ -65,4 +64,31 @@ def funcChecker(ASTObj,SymTab,FuncTab,scope,errors):
     elif ASTObj.children:
             for child in ASTObj.children:
                 funcChecker(child,SymTab,FuncTab,scope,errors)
-    
+
+#checks if all identifiers are defined and used in scope
+def identifierChecker(ASTObj,SymTab,scope,errors):
+    gscope = -1 
+    if ASTObj.val in ['TK_ID']:
+        if SymTab.hashfunction(ASTObj.realval,scope) not in SymTab.keyList:
+            
+            if SymTab.hashfunction(ASTObj.realval,gscope) not in SymTab.keyList: #check for global scope
+                errmsg = ("Identifier %s is not defined"%ASTObj.realval)
+                errlineno =  ASTObj.lineno
+                errors.append((errmsg,errlineno))
+                return errors
+
+                if SymTab.symbolTable[SymTab.hashfunction(ASTObj.realval,scope)]['scope'] != scope: 
+                    if SymTab.symbolTable[SymTab.hashfunction(ASTObj.realval,scope)]['scope'] != 0:
+                        errmsg = ("Identifier %s is not defined in the scope it is being used"%ASTObj.realval)
+                        errlineno =  ASTObj.lineno
+                        errors.append((errmsg,errlineno))
+                        return errors
+
+        if SymTab.hashfunction(ASTObj.realval,gscope) in SymTab.keyList: #check if given TK_ID is an array, 
+            for child in ASTObj.children:                                #in which case check if indexed id is defined   
+                identifierChecker(child,SymTab,scope,errors)
+    elif ASTObj.children:
+            for child in ASTObj.children:
+                identifierChecker(child,SymTab,scope,errors)
+
+#def whileChecker

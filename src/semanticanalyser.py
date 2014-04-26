@@ -47,10 +47,13 @@ def funcChecker(ASTObj,SymTab,FuncTab,scope,errors):
             flag2 = 0;
             
             for eachsignature in rhs:
-               if lhs == [eachsignature]:
+               if lhs == eachsignature:
                     flag1 = 1;
+    
             for eachparamlist in funcdefparams:
-               if callparams == [eachparamlist]:
+                print(callparams)
+                print(eachparamlist)
+                if callparams == eachparamlist:
                     flag2 = 1;     
     
             if flag1 == 0 or flag2 == 0:         

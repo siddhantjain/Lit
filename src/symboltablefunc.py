@@ -26,7 +26,7 @@ class symboltableclass:
             array = bool(0)
             
             if token == 'TK_FUNC':
-                dtype.append('procname')
+                dtype = 'procname'
                 if prevToken == 'TK_END' or prevToken == 'NULL':
                     dlist = [(lineno,pos)]
                     scope = 0;
@@ -37,10 +37,12 @@ class symboltableclass:
             else:
                 #print (prevToken)
                 if prevToken == 'TK_INT':
-                    dtype.append('TK_INT')
+                    dtype = 'TK_INT'
+                    #dtype.append('TK_INT')
                     dlist = [(lineno,pos)]
                 elif prevToken == 'TK_FLOAT':
-                    dtype.append('TK_FLOAT')
+                    dtype = 'TK_FLOAT'                    
+                    #dtype.append('TK_FLOAT')
                     dlist = [(lineno,pos)]
                 else:
                     rlist.append((lineno,pos))

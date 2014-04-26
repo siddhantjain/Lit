@@ -14,6 +14,7 @@ def lexerControl(tokfilename,errorfilename,progfilename):
         alltokens = lx.tokens()
     	for tok in alltokens:
     	   if tok.type_ == 'TK_ERROR':
+                print("lexical error in program. Check error file")     
     	        errorfile.write ('(%d,%d) \'%s\' doesn\'t follow lexical rules'% (lineno,tok.pos,tok.val))
            elif tok.type_ == 'TK_CMNT':
                 continue        

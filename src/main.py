@@ -10,6 +10,7 @@ from data import regexes, functionTab, functionKeyList
 
 #COMMAND LINE RUN STATEMENT: python src/main.py examples/test2.txt error_lit.txt tokens_lit.txt
 #GIT ADD: git add src/main.py src/lexicalanalyser.py src/symboltablefunc.py src/parser_pda.py src/parserpart2.py src/data.py src/AST.py src/additionalfunctions.py src/semanticanalyser.py
+#GIT PULL: git pull https://github.com/siddhantjain/Lit.git
 
 
 #weird way, but this is how main can start
@@ -41,6 +42,7 @@ if __name__ == '__main__':
     generatedrules = rulegenerator.PDAOperation()
     
     if generatedrules[-2] == 'Syntax Error':
+        print("Syntax error in program. Check error file")     
         errorfile.write(generatedrules[-1]) 
     
     
@@ -86,7 +88,9 @@ if __name__ == '__main__':
         # Semantic Analysis functions
         synerrors = []    
         semanticanalyser.funcIterator(ASTobj.ASTHead,ST,functionTab,synerrors)
-        print(synerrors)
+        if(synerrors):       
+            print("Semantic error in program. Check error file") 
+            errorfile.write("line:%s %s"%(synerrors[0][1],synerrors[0][0]))
 
         
 

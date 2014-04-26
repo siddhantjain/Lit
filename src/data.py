@@ -126,5 +126,4 @@ ArithOps = [
 functionTab = {}
 # stores the keys associated with a function name. | useful in case of function overloading
 functionKeyList = {}
-#Dictionary to store the scope of all variables in a given function
-functionScope = {}
+

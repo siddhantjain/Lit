@@ -9,7 +9,7 @@ import semanticanalyser
 from data import regexes, functionTab, functionKeyList
 
 #COMMAND LINE RUN STATEMENT: python src/main.py examples/test2.txt error_lit.txt tokens_lit.txt
-#GIT ADD: git add src/main.py src/lexicalanalyser.py src/symboltablefunc.py src/parser_pda.py src/parserpart2.py src/data.py src/AST.py
+#GIT ADD: git add src/main.py src/lexicalanalyser.py src/symboltablefunc.py src/parser_pda.py src/parserpart2.py src/data.py src/AST.py src/additionalfunctions.py src/semanticanalyser.py
 
 
 #weird way, but this is how main can start
@@ -74,18 +74,19 @@ if __name__ == '__main__':
         length = additionalfunctions.retNumOfScope(ASTobj.ASTHead)        
         additionalfunctions.updateScope(ASTobj.ASTHead,ST,length)
         
-        # print(ST.symbolTable);
+        #print(ST.symbolTable);
         #print(ST.keyList)       
 
-        #additionalfunctions.updateFunctionTab(ASTobj.ASTHead,functionTab,functionKeyList)
+        additionalfunctions.updateFunctionTab(ASTobj.ASTHead,functionTab,functionKeyList)
         
         #print(functionTab)
         #print(functionKeyList)
 
 
         # Semantic Analysis functions
-        #synerrors = []    
-        #semanticanalyser.funcIterator(ASTobj.ASTHead,ST,functionTab,synerrors)
+        synerrors = []    
+        semanticanalyser.funcIterator(ASTobj.ASTHead,ST,functionTab,synerrors)
+        print(synerrors)
 
         
 

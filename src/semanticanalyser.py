@@ -31,10 +31,16 @@ def funcChecker(ASTObj,SymTab,FuncTab,scope,errors):
         
             #print(callparams)            
         if ASTObj.children[1].val == 'TK_CALL':
-            for functionEntries in functionKeyList[ASTObj.children[1].children[0].realval]:
+            if ASTObj.children[1].children[0].realval in functionKeyList:
+                for functionEntries in functionKeyList[ASTObj.children[1].children[0].realval]:
                 
-                rhs.append(FuncTab[functionEntries]['output_parameters'])
-                funcdefparams.append(FuncTab[functionEntries]['input_parameters'])
+                    rhs.append(FuncTab[functionEntries]['output_parameters'])
+                    funcdefparams.append(FuncTab[functionEntries]['input_parameters'])
+            else: #if there is no entry for the function in the function table
+                errmsg = "definition for function  not found"
+                errlineno =  ASTObj.children[1].lineno
+                errors.append((errmsg,errlineno))
+                return errors
 
             #print(funcdefparams)
             flag1 = 0;

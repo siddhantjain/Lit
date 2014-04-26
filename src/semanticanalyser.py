@@ -37,7 +37,7 @@ def funcChecker(ASTObj,SymTab,FuncTab,scope,errors):
                     rhs.append(FuncTab[functionEntries]['output_parameters'])
                     funcdefparams.append(FuncTab[functionEntries]['input_parameters'])
             else: #if there is no entry for the function in the function table
-                errmsg = "definition for function  not found"
+                errmsg = "definition for function not found"
                 errlineno =  ASTObj.children[1].lineno
                 errors.append((errmsg,errlineno))
                 return errors

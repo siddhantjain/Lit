@@ -1,6 +1,6 @@
 # methods to update the symbol table for furhter checking
 import sys
-from data import functionScope
+
 def retNumOfScope(ASTHead):              #takes the number of children of AST head to find the number of scopes
     numOfScope = len(ASTHead.children)
     return numOfScope

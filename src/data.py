@@ -123,6 +123,11 @@ ArithOps = [
 'TK_PLUS','TK_MINUS','TK_MUL','TK_DIV']
 
 # stores input paramter and output parameter values for each function name. indexed by lineno+pos of the function declaration
+AllReg = [['AX',1],
+['BX',1],['CX',1],['DX',1],['SI',1],['DI',1],['SP',1],['BP',1]]
+#first column is reg name and second column contains availablity
+
+# stores input paramter and output parameter values for each function name. indexed by lineno+pos of the function declration
 functionTab = {}
 # stores the keys associated with a function name. | useful in case of function overloading
 functionKeyList = {}

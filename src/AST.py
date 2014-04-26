@@ -374,15 +374,41 @@ class ASTClass(object):
                 ASTNodenum = ASTNode.CopyValues(ASTNodenum,PTobj.children[0])
                 return ASTNodenum
         
-        elif(PTobj.val=='<Boolean_expression>'):
-            ASTNodeBE = ASTNode(val = PTobj.val)
-            ASTNodeBE = self.BuildBE(ASTNodeBE,PTobj)
+        #elif(PTobj.val=='<Boolean_expression>'):
+            #ASTNodeBE = ASTNode(val = PTobj.val)
+            #ASTNodeBE = self.BuildBE(ASTNodeBE,PTobj)
             #ASTNodeBE = ASTNode()
             #ASTNodeBE = ASTNode.CopyValues(ASTNodeBE,PTobj)
             #print('Printing BE')
             #self.PrintASTtoTerm(ASTNodeBE,0)
-            return ASTNodeBE
+            #return ASTNodeBE
         
+        elif(PTobj.val=='<Boolean_expression>'):
+            if(PTobj.children[0].val=='<var>'):
+                ASTNodeVarLeft = self.BuildAST(ASTobj,PTobj.children[0])
+                ASTNodeRelOp = ASTNode()
+                ASTNodeRelOp = ASTNode.CopyValues(ASTNodeRelOp,PTobj.children[1].children[0].children[0])
+                ASTNodeRelOp.children.append(ASTNodeVarLeft)
+                ASTNodeVarRight = self.BuildAST(ASTobj,PTobj.children[1].children[1])
+                ASTNodeRelOp.children.append(ASTNodeVarRight)
+                return ASTNodeRelOp
+            
+            elif(PTobj.children[0].val=='TK_NOT'):
+                ASTNodeRelNot = ASTNode()
+                ASTNodeRelNot = ASTNode.CopyValues(ASTNodeRelNot,PTobj.children[0])
+                ASTNodeBE = self.BuildAST(ASTobj,PTobj.children[1])
+                ASTNodeRelNot.children.append(ASTNodeBE)
+                return ASTNodeRelNot
+            
+            elif(PTobj.children[0].val=='TK_ORD'):
+                ASTNodeLogOp = ASTNode()                #Pivot will be logical op TK_AND or TK_OR
+                ASTNodeLogOp = ASTNode.CopyValues(ASTNodeLogOp,PTobj.children[3].children[0])
+                ASTNodeBELeft = self.BuildAST(ASTobj,PTobj.children[1])
+                ASTNodeLogOp.children.append(ASTNodeBELeft)
+                ASTNodeBERight = self.BuildAST(ASTobj,PTobj.children[5])
+                ASTNodeLogOp.children.append(ASTNodeBERight)
+                return ASTNodeLogOp
+                
         
         elif(PTobj.val=='<id>'):
             #print(PTobj.val)
@@ -398,7 +424,7 @@ class ASTClass(object):
                     #print(child.val)
                     ASTobj = self.BuildAST(ASTobj,child)
             return ASTobj
-        '''
+        
     
     
     def BuildAE(self,ASTobj,PTobj):
@@ -460,6 +486,9 @@ class ASTClass(object):
             for child in PTobj.children:
                 ASTobj = self.BuildBE(ASTobj,child)
         return ASTobj
+    '''
+    
+    
     
     def PrintAST(self,obj,ASTfile,level):
         temp2 = "%s"%obj.val

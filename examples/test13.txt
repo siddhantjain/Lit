@@ -1,0 +1,37 @@
+#program to find the decimal equivalent of a binary number given in the form of an array. 
+# Semantic Error in code: function not defined
+
+
+_main
+	int $a[10];
+	int $arrays;
+	int $c;
+	int $random[10];
+	int $result;
+    int $temp;
+
+	$c <- 1; 
+	$arrays <- 10;
+    $temp <- 1;
+	if($random[3]>0)
+	    $random[$c] <- $a[5];
+	else
+	    $random[3] <- 4;
+	endif
+
+    while($temp==1)
+        print("do nothing");
+        $temp <- $temp-1;
+    endwhile
+
+	while($c <= 10)
+		print("Enter bit number");
+		println($c);
+		read($a[$c]);
+		$c <- $c + 1;
+	endwhile
+	[$result] <- call _binarytodecimal[$arrays]; 
+	println($result);
+return void;                #NEED TO PUT IT FOR SURE!
+end
+

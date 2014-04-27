@@ -24,6 +24,7 @@ regexes = [
 ('call','TK_CALL'),
 ('println','TK_PRINTLN'),
 ('print','TK_PRINT'),
+('break','TK_BREAK'),
 (r'\(','TK_ORD'),
 (r'\)','TK_CRD'),
 ('while','TK_WHILE'),

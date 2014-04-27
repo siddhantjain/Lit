@@ -13,7 +13,7 @@ def funcIterator(ASTHead,SymTab,FuncTab, errors):
             if eachstatement.val == '<O_stmts>':
                 identifierChecker(eachstatement,SymTab,numOfScope,errors)
                 funcChecker(eachstatement,SymTab,FuncTab,numOfScope,errors)
-            
+                breakChecker(eachstatement,errors)
         numOfScope-=1
 
 def funcChecker(ASTObj,SymTab,FuncTab,scope,errors):
@@ -91,6 +91,33 @@ def identifierChecker(ASTObj,SymTab,scope,errors):
             for child in ASTObj.children:
                 identifierChecker(child,SymTab,scope,errors)
 
-'''def breakChecker(ASTObj, SymTab, scope,errors):
-    whileranges = []        #stores the range of lineno,pos where a break is allowed'''
+def breakChecker(ASTObj,errors):
+    whileranges = []
+    #print(ASTObj.val)
+    if ASTObj.val in ['TK_BREAK']:
+        #print("found breal")
+        flag = 0;
+        for i in range(len(whileranges)):
+            print (whileranges[i][0])
+            print (whileranges[i][1])
+            if ASTObj.lineno > whileranges[i][0] and ASTObj.lineno < whileranges[i+1][0]: 
+                flag = 1;
+            elif ASTObj.lineno == whileranges[i][0] and ASTObj.lineno > whileranges[i][1] and ASTObj.lineno < whileranges[i+1][0]:
+                flag = 1;
+            elif ASTObj.lineno > whileranges[i][0] and ASTObj.lineno == whileranges[i+1][0] and ASTObj.lineno < whileranges[i+1][0]:
+                flag = 1;
+     
+        if flag == 0:
+           errmsg = ("break statement outside while loop is not allowed")
+           errlineno =  ASTObj.lineno
+           errors.append((errmsg,errlineno))
+           return errors
+
+        if ASTObj.children:
+            for child in ASTObj.children:
+                breakChecker(child,errors)
+   
+    elif ASTObj.children:
+        for child in ASTObj.children:
+            breakChecker(child,errors) 
     

@@ -97,7 +97,7 @@ class PushDownAutomata():
             if topOfStack in nonTerminals:                                          # if topOfStack is a nonTerminal    
                 nextRule = parsetable[topOfStack][topOfInput]
                 if nextRule == '':              #check this condition
-                    #print ('Syntax Error: No matching rule for derivation')
+                    
                     self.PDAAction.append('Syntax Error')
                     self.PDAAction.append('\nSyntax Error: No matching rule for derivation')
                     return self.PDAAction

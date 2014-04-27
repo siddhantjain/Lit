@@ -1,5 +1,6 @@
 # methods to update the symbol table for furhter checking
 import sys
+import re
 
 def retNumOfScope(ASTHead):              #takes the number of children of AST head to find the number of scopes
     numOfScope = len(ASTHead.children)
@@ -95,3 +96,35 @@ def updateFunctionTab(ASTHead, FuncTab, FuncKeyList):
             
 
                                                                      
+
+def findwhileranges(listOfTokens,whileranges):
+    for i in xrange(0,len(listOfTokens)):
+        if(listOfTokens[i]):
+            temp1 = re.split(r'~',listOfTokens[i])[1]
+            line1 = re.split(r'~',listOfTokens[i])[3]
+            pos1 = re.split(r'~',listOfTokens[i])[4]
+            
+        else:                                       
+            temp1 = '$'
+    
+        if temp1 == 'TK_WHILE':
+            for j in range(i,len(listOfTokens)):
+                if(listOfTokens[j]):
+                    temp2 = re.split(r'~',listOfTokens[j])[1]
+                else:
+                    temp2 = '$' 
+               
+
+                if temp2 == 'TK_EWHILE':
+                    
+                    line2 = re.split(r'~',listOfTokens[j])[3]
+                    pos2 = re.split(r'~',listOfTokens[j])[4]
+    
+                    whileranges.append((line1,pos1))
+                    whileranges.append((line2,pos2))
+                    i=j
+                    break
+
+        
+                               
+    

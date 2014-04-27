@@ -6,7 +6,7 @@ def lexerControl(tokfilename,errorfilename,progfilename):
     lx = Lexer(regexes)
     progfile    =  open(progfilename,"r")       
     errorfile   =  open(errorfilename,"w")
-    tokfile     =  open(tokfilename,"w")
+    tokfile     =  open(tokfilename,"w+")
     
     lineno = 1
     for line in progfile:
@@ -15,6 +15,7 @@ def lexerControl(tokfilename,errorfilename,progfilename):
     	for tok in alltokens:
     	   if tok.type_ == 'TK_ERROR':
                 print("lexical error in program. Check error file")     
+                print('(%d,%d) \'%s\' doesn\'t follow lexical rules'% (lineno,tok.pos,tok.val))
     	        errorfile.write ('(%d,%d) \'%s\' doesn\'t follow lexical rules'% (lineno,tok.pos,tok.val))
            elif tok.type_ == 'TK_CMNT':
                 continue        

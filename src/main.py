@@ -20,10 +20,13 @@ if __name__ == '__main__':
     errorfilename   =  sys.argv[2]
     tokfilename     =  sys.argv[3]
 					
+    lerror = 0
     #add statements so that it doesn't go beyond each stage of error detection   
-    lexicalanalyser.lexerControl(tokfilename,errorfilename,progfilename)
-    #find the range of lineno, pos in which a break can legally be called
-    
+    lexicalanalyser.lexerControl(tokfilename,errorfilename,progfilename,lerror)
+       
+  
+    if lerror:
+        exit()
 
     errorfile = open(errorfilename,"w+")
     parsetreefile   =  open("parsetree.txt","w+")
@@ -95,6 +98,7 @@ if __name__ == '__main__':
         if(synerrors):       
             print("Semantic error in program. Check error file") 
             errorfile.write("line:%s %s"%(synerrors[0][1],synerrors[0][0]))
-
-        # write a try-catch condition to check if there is no error 
+            exit()
+        
+    
 

@@ -2,7 +2,7 @@ import re
 import sys
 from data import regexes
 
-def lexerControl(tokfilename,errorfilename,progfilename):
+def lexerControl(tokfilename,errorfilename,progfilename,lerror):
     lx = Lexer(regexes)
     progfile    =  open(progfilename,"r")       
     errorfile   =  open(errorfilename,"w")
@@ -17,6 +17,7 @@ def lexerControl(tokfilename,errorfilename,progfilename):
                 print("lexical error in program. Check error file")     
                 print('(%d,%d) \'%s\' doesn\'t follow lexical rules'% (lineno,tok.pos,tok.val))
     	        errorfile.write ('(%d,%d) \'%s\' doesn\'t follow lexical rules'% (lineno,tok.pos,tok.val))
+                lerror = 1
            elif tok.type_ == 'TK_CMNT':
                 continue        
     	   else:
@@ -25,6 +26,8 @@ def lexerControl(tokfilename,errorfilename,progfilename):
         lineno+=1
     
     tokfile.close()
+    if lerror:
+        exit()
     #errorfile.close()
 
 class Lexeme():							

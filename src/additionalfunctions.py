@@ -94,9 +94,8 @@ def updateFunctionTab(ASTHead, FuncTab, FuncKeyList):
             totScope -=1
                 
             
-
-                                                                     
-
+                                                                    
+#find the range of lineno, pos in which a break can legally be called
 def findwhileranges(listOfTokens,whileranges):
     for i in xrange(0,len(listOfTokens)):
         if(listOfTokens[i]):

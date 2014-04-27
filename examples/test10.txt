@@ -1,0 +1,60 @@
+#program to find the decimal equivalent of a binary number given in the form of an array. 
+# Semantic Error in code: break statement not inside a while statement
+
+_binarytodecimal input_parameters [int $arraysize,int $again] output_parameters [int $decimal];
+    int $ans;
+    int $count;
+    int $multiply;
+    int $c;
+
+    $ans <- 0;
+    $multiply <- 1;
+    $count <- $arraysize;
+    break; #ERROR
+    while($count >= 1)
+        if ($a[$count] == 1)
+            $ans <- $ans+ $multiply;
+            $multiply <- $multiply*2;
+            $count <- $count - 1;       #test comment inline
+        else
+            $multiply <- $multiply*2;
+            $count <- $count - 1;
+        endif
+    endwhile
+    
+return [$ans];
+end
+
+_main
+	int $a[10];
+	int $arrays;
+	int $c;
+	int $random[10];
+	int $result;
+    int $temp;
+
+	$c <- 1; 
+	$arrays <- 10;
+    $temp <- 1;
+	if($random[3]>0)
+	    $random[$c] <- $a[5];
+	else
+	    $random[3] <- 4;
+	endif
+
+    while($temp==1)
+        print("do nothing");
+        $temp <- $temp-1;
+    endwhile
+
+	while($c <= 10)
+		print("Enter bit number");
+		println($c);
+		read($a[$c]);
+		$c <- $c + 1;
+	endwhile
+	[$result] <- call _binarytodecimal[$arrays,$c];
+	println($result);
+return void;                #NEED TO PUT IT FOR SURE!
+end
+

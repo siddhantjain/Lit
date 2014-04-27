@@ -16,7 +16,7 @@ class symboltableclass:
             key =  key+ int(scope)                            #There can be only one unique id in given scope                    
         return key 
 
-    def addLexeme(self,token,name,lineno,pos,scope = -1,prevToken='NULL',followingToken='NULL'):
+    def addLexeme(self,token,name,lineno,pos,scope = -1,prevToken='NULL',followingToken='NULL',arraysize = 0):
         hashkey = self.hashfunction(name,scope)
         
         if(hashkey not in self.keyList):
@@ -49,7 +49,8 @@ class symboltableclass:
 
                 if followingToken == 'TK_OSQ':
                     array = bool(1)
-                    scope = 0                                   #note: arrays are global by default
+                    scope = 0                   #note: arrays are global by default
+                                         
                 if followingToken == 'TK_GLOBAL':                           
                     scope = 0
                 
@@ -60,6 +61,7 @@ class symboltableclass:
                                 'value': 0,
                                 'size': 0,
                                 'array':array,          #default value. Update it later
+                                'arraysize':arraysize,
                                 'scope':scope,
                                 'declared': dlist,                                          
                                 'referred': rlist,

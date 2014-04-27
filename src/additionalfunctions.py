@@ -22,6 +22,8 @@ def updateScope(ASTHead,SymTab,numOfScope):
                                          numOfScope, 
                                          declaration.val,
                                          'NULL')
+                    elif SymTab.symbolTable[SymTab.hashfunction(declaration.children[0].realval)]['array'] == bool(1):
+                        SymTab.symbolTable[SymTab.hashfunction(declaration.children[0].realval)]['arraysize'] = declaration.children[0].children[0].realval                    
                         
 
 

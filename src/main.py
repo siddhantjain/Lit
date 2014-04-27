@@ -95,6 +95,12 @@ if __name__ == '__main__':
 
         # Semantic Analysis functions
         synerrors = []    
+        semanticanalyser.symbolTableChecker(ST,synerrors)
+        if(synerrors):
+            print("Semantic error in program. Check error file") 
+            errorfile.write("line:%s %s"%(synerrors[0][1],synerrors[0][0]))
+            exit()
+        
         semanticanalyser.funcIterator(ASTobj.ASTHead,ST,functionTab,synerrors)
         if(synerrors):       
             print("Semantic error in program. Check error file") 

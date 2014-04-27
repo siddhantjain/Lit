@@ -107,7 +107,7 @@ if __name__ == '__main__':
             errorfile.write("line:%s %s"%(synerrors[0][1],synerrors[0][0]))
             exit()
         
-        print('work idiot')
+       
         CodeGenObj = CodeGen.CodeGenClass(ASTobj.ASTHead,ST,functionTab)
         CodeGenObj.GenerateCode()
     

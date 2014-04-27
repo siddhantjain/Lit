@@ -6,6 +6,14 @@ from data import functionKeyList
 # sends o_stmts block for each function to another function which looks for 
 # a) TK_CALL - to see if all calls are to defined functions
 # b) TK_BREAK - to see if breaks appear inside while loops
+def symbolTableChecker(SymTab,errors):
+    for each in SymTab.keyList:
+        if (len(SymTab.symbolTable[each]['declared']) > 1):
+            errmsg = ("%s defined multiple times in the same scope"%SymTab.symbolTable[each]['name'])
+            errlineno =  SymTab.symbolTable[each]['declared'][0][0]
+            errors.append((errmsg,errlineno))
+            return errors
+            
 def funcIterator(ASTHead,SymTab,FuncTab, errors):
     numOfScope = len(ASTHead.children)
     for eachfunction in ASTHead.children: 
@@ -120,4 +128,4 @@ def breakChecker(ASTObj,errors):
     elif ASTObj.children:
         for child in ASTObj.children:
             breakChecker(child,errors) 
-    
+

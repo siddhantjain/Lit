@@ -9,7 +9,7 @@ from data import functionKeyList
 def symbolTableChecker(SymTab,errors):
     for each in SymTab.keyList:
         if (len(SymTab.symbolTable[each]['declared']) > 1):
-            errmsg = ("%s defined multiple times in the same scope"%SymTab.symbolTable[each]['name'])
+            errmsg = ("%s defined multiple times in the same scope or it clashes with a globally defined variable"%SymTab.symbolTable[each]['name'])
             errlineno =  SymTab.symbolTable[each]['declared'][0][0]
             errors.append((errmsg,errlineno))
             return errors
@@ -77,6 +77,7 @@ def funcChecker(ASTObj,SymTab,FuncTab,scope,errors):
 def identifierChecker(ASTObj,SymTab,scope,errors):
     gscope = -1 
     if ASTObj.val in ['TK_ID']:
+                
         if SymTab.hashfunction(ASTObj.realval,scope) not in SymTab.keyList:
             
             if SymTab.hashfunction(ASTObj.realval,gscope) not in SymTab.keyList: #check for global scope
@@ -92,9 +93,13 @@ def identifierChecker(ASTObj,SymTab,scope,errors):
                         errors.append((errmsg,errlineno))
                         return errors
 
+        
+                       
         if SymTab.hashfunction(ASTObj.realval,gscope) in SymTab.keyList: #check if given TK_ID is an array, 
             for child in ASTObj.children:                                #in which case check if indexed id is defined   
                 identifierChecker(child,SymTab,scope,errors)
+        
+        
     elif ASTObj.children:
             for child in ASTObj.children:
                 identifierChecker(child,SymTab,scope,errors)
@@ -106,8 +111,8 @@ def breakChecker(ASTObj,errors):
         #print("found breal")
         flag = 0;
         for i in range(len(whileranges)):
-            print (whileranges[i][0])
-            print (whileranges[i][1])
+            #print (whileranges[i][0])
+            #print (whileranges[i][1])
             if ASTObj.lineno > whileranges[i][0] and ASTObj.lineno < whileranges[i+1][0]: 
                 flag = 1;
             elif ASTObj.lineno == whileranges[i][0] and ASTObj.lineno > whileranges[i][1] and ASTObj.lineno < whileranges[i+1][0]:

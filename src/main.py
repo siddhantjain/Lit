@@ -7,6 +7,7 @@ import AST
 import additionalfunctions
 import semanticanalyser
 from data import regexes, functionTab, functionKeyList
+import CodeGen
 
 #COMMAND LINE RUN STATEMENT: python src/main.py examples/test2.txt error_lit.txt tokens_lit.txt
 #GIT ADD: git add src/main.py src/lexicalanalyser.py src/symboltablefunc.py src/parser_pda.py src/parserpart2.py src/data.py src/AST.py src/additionalfunctions.py src/semanticanalyser.py src/CodeGen.py
@@ -100,5 +101,8 @@ if __name__ == '__main__':
             errorfile.write("line:%s %s"%(synerrors[0][1],synerrors[0][0]))
             exit()
         
+        print('work idiot')
+        CodeGenObj = CodeGen.CodeGenClass(ASTobj.ASTHead,ST,functionTab)
+        CodeGenObj.GenerateCode()
     
 

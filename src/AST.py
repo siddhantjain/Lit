@@ -269,8 +269,10 @@ class ASTClass(object):
             ASTobj.children.append(ASTNodeOStmts)
             if(PTobj.children[5].children[0].val=='TK_ELSE'):
                 ASTNodeElse = ASTNode()
-                ASTNodeElse = ASTNode.CopyValues(ASTNodeElse,PTobj.children[5].children[0])      #TK_ELSE pivot for all statements in else clause
-                ASTNodeElse = self.BuildAST(ASTNodeElse,PTobj.children[5].children[1])
+                ASTNodeElse = ASTNode.CopyValues(ASTNodeElse,PTobj.children[5].children[0])      #TK_ELSE has only one child <O_stmts>
+                ASTNodeElseStmts = ASTNode(val = '<O_stmts>')               #<O_stmts> pivot for all statements in else clause
+                ASTNodeElseStmts = self.BuildAST(ASTNodeElseStmts,PTobj.children[5].children[1])
+                ASTNodeElse.children.append(ASTNodeElseStmts)
                 ASTobj.children.append(ASTNodeElse)
             
             return ASTobj

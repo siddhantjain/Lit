@@ -34,7 +34,6 @@ def funcChecker(ASTObj,SymTab,FuncTab,scope,errors):
         if ASTObj.children[1].val == 'TK_CALL':
             if ASTObj.children[1].children[0].realval in functionKeyList:
                 for functionEntries in functionKeyList[ASTObj.children[1].children[0].realval]:
-                
                     rhs.append(FuncTab[functionEntries]['output_parameters'])
                     funcdefparams.append(FuncTab[functionEntries]['input_parameters'])
             else: #if there is no entry for the function in the function table

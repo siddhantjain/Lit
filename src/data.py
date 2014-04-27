@@ -123,6 +123,10 @@ ArithTerms = [
 ArithOps = [
 'TK_PLUS','TK_MINUS','TK_MUL','TK_DIV']
 
+TokNums = ['TK_NUM','TK_RNUM']
+
+TokVars = ['TK_NUM','TK_RNUM','TK_ID']
+
 # stores input paramter and output parameter values for each function name. indexed by lineno+pos of the function declaration
 AllReg = [['AX',1],
 ['BX',1],['CX',1],['DX',1],['SI',1],['DI',1],['SP',1],['BP',1]]

@@ -227,6 +227,10 @@ class ASTClass(object):
             ASTobj.children.append(ASTNodeStmt)
             return ASTobj
         
+        elif(PTobj.val == '<break_stmt>'):
+            ASTobj = ASTNode.CopyValues(ASTobj,PTobj.children[0])
+            return ASTobj
+        
         elif(PTobj.val=='<gen_stmt>'):
             if(PTobj.children[0].val == '<print_stmts>'):
                 ASTobj = ASTNode.CopyValues(ASTobj,PTobj.children[0].children[0].children[0])       #Pivot is either TK_PRINT/TK_PRINTLN

@@ -39,10 +39,16 @@ class CodeGenClass(object):
     
     
     def AssignStmtCG(self,ASTobjAE,ASTfunc,codegenfile):
-        if(ASTobjAE.val == 'TK_ID'):
-            key = ASTfunc.lineno+ASTfunc.pos
-            scope = self.FuncTab[key]['scope']
-            return self.SymTab.symbolTable[self.SymTab.hashfunction(ASTobjAE.realval,scope)]['register']
+        if(ASTobjAE.val in TokVars):
+            if(ASTobjAE.val == 'TK_ID'):
+                key = ASTfunc.lineno+ASTfunc.pos
+                scope = self.FuncTab[key]['scope']
+                return self.SymTab.symbolTable[self.SymTab.hashfunction(ASTobjAE.realval,scope)]['register']
+            
+            elif(ASTobjAE.val in TokNums):
+                temp = '%s'%ASTobjAE.realval
+                return temp
+        
         elif ASTobjAE.val in ArithOps:
             if((ASTobjAE.children[1].val not in ArithOps) and (ASTobjAE.children[0].val not in ArithOps)):
                 if(ASTobjAE.children[0].val in TokNums):
@@ -157,10 +163,13 @@ class CodeGenClass(object):
                     codegenfile.write(jumpcmd3)
                     if len(eachstmt.children) >=3:
                         if(eachstmt.children[2].val == 'TK_ELSE'):
-                            #print('Reached Here %s '%eachstmt.children[2].children[0].val)
                             self.OStmts(eachstmt.children[2].children[0],ASTfunc,codegenfile)
                         
-                    
+                    #if(ASTobjAE.children[0].val == 'TK_NUM'):
+                     #           print(ASTobjAE.children[0].realval)
+                      #          temp = hex(ASTobjAE.children[0].realval)
+                       #     else:
+                        #        temp = float.hex(ASTobjAE.children[0].realval)
                     
                     
 

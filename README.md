@@ -3,6 +3,8 @@ Lit
 
 Lost in Translation(Lit) is a compiler created as a part of the course on Programming Languages and Compiler Construction.
 
+#COMMAND LINE RUN STATEMENT: python src/main.py examples/test2.txt error_lit.txt tokens_lit.txt
+
 ## Language Specifications
 
 The specifications for the language can be viewed in the file named Language Specifications.txt

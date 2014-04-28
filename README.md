@@ -4,7 +4,9 @@ Lit
 Lost in Translation(Lit) is a compiler created as a part of the course on Programming Languages and Compiler Construction.
 
 COMMAND LINE RUN STATEMENT: "python src/main.py examples/test2.txt error_lit.txt tokens_lit.txt"
+
 GENERATED FILES:
+---------------------
 1. parsetree.txt - list of grammar rules used in parsing.
 2. parsetree2.txt - parse tree printed in more intuitive format
 3. ASTfile.txt - Abstract Syntax Tree printed in intuitive format
